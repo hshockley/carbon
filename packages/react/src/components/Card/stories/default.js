@@ -13,10 +13,14 @@ import Link from '../../Link';
 import Card from '../../Card';
 import CardFooter from '../../CardFooter';
 import CardContent from '../../CardContent';
+import { iconAdd } from 'carbon-icons';
 
 export default props => (
   <Card {...props}>
-    <CardContent cardTitle="Card Name" cardInfo={['Secondary Information']}>
+    <CardContent
+      cardTitle="Card Name"
+      cardInfo={['Secondary Information']}
+      cardIcon={iconAdd}>
       <OverflowMenu {...props}>
         <OverflowMenuItem {...props} itemText="Stop App" />
         <OverflowMenuItem {...props} itemText="Restart App" />

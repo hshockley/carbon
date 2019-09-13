@@ -24,7 +24,8 @@ const CardActionItem = ({
       aria-label={ariaLabel}>
       <Icon
         className="bx--app-actions__button--icon"
-        name={iconName}
+        icon={iconName}
+        name={'icon'}
         description={description}
       />
     </button>
@@ -35,7 +36,12 @@ CardActionItem.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   ariaLabel: PropTypes.string,
-  iconName: PropTypes.string.isRequired,
+  iconName: PropTypes.shape({
+    width: PropTypes.string,
+    height: PropTypes.string,
+    viewBox: PropTypes.string.isRequired,
+    svgData: PropTypes.object.isRequired,
+  }).isRequired,
   description: PropTypes.string.isRequired,
 };
 

@@ -42,7 +42,11 @@ const CardContent = ({
       {children}
       <div className="bx--card-overview__about">
         <div className="bx--about__icon">
-          <Icon icon={cardIcon} name={cardIcon} description={iconDescription} />
+          <Icon
+            icon={cardIcon}
+            name={cardTitle}
+            description={iconDescription}
+          />
         </div>
         <div className="bx--about__title">
           <p id="card-app-title" className="bx--about__title--name">
@@ -58,7 +62,12 @@ const CardContent = ({
 
 CardContent.propTypes = {
   children: PropTypes.node,
-  cardIcon: PropTypes.string,
+  cardIcon: PropTypes.shape({
+    width: PropTypes.string,
+    height: PropTypes.string,
+    viewBox: PropTypes.string.isRequired,
+    svgData: PropTypes.object.isRequired,
+  }),
   cardTitle: PropTypes.string,
   cardLink: PropTypes.node,
   cardInfo: PropTypes.array,
