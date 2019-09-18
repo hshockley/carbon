@@ -1,0 +1,24 @@
+@import '../../globals/scss/helper-mixins';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
+@import '../../globals/scss/vars';
+
+/// Data table sort styles
+/// @access private
+/// @group data-table
+@mixin data-table-inline-filter {
+    .#{$prefix}--table-inline-filter{
+        
+    }
+    /// Icons
+    .#{$prefix}--table-inline-filter__icon {
+        margin: 1rem;
+    }
+
+
+
+}
+
+@include exports('data-table-inline-filter') {
+    @include data-table-inline-filter;
+  }
+  

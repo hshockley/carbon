@@ -12,6 +12,7 @@ import { settings } from '@rocketsoftware/carbon-components';
 import {
   ArrowUp20 as Arrow,
   ArrowsVertical20 as Arrows,
+  Filter20 as Filter
 } from '@rocketsoftware/icons-react';
 import { sortStates } from './state/sorting';
 
@@ -64,7 +65,12 @@ const TableHeader = React.forwardRef(function TableHeader(
   if (!isSortable) {
     return (
       <th {...rest} className={headerClassName} scope={scope}>
+        <button className={`${prefix}--table-sort`} {...rest}>
         <span className={`${prefix}--table-header-label`}>{children}</span>
+        <Filter
+        className={`${prefix}--table-sort--active`}
+         />
+         </button>
       </th>
     );
   }

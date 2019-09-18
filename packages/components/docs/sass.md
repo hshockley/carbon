@@ -342,6 +342,7 @@
   - [❌data-table-core [mixin]](#data-table-core-mixin)
   - [❌data-table-expandable [mixin]](#data-table-expandable-mixin)
   - [❌assistive-text [mixin]](#assistive-text-mixin)
+  - [❌data-table-inline-filter [mixin]](#data-table-inline-filter-mixin)
   - [❌data-table-sort [mixin]](#data-table-sort-mixin)
 - [date-picker](#date-picker)
   - [❌date-picker [mixin]](#date-picker-mixin)
@@ -476,6 +477,7 @@
   - [✅spacing--cell--activity [variable]](#spacing--cell--activity-variable)
   - [✅spacing--cell--status [variable]](#spacing--cell--status-variable)
   - [✅spacing--cell-actions [variable]](#spacing--cell-actions-variable)
+  - [✅.#{\$prefix}--table-inline-filter\_\_icon [css]](#%23prefix--table-inline-filter__icon-css)
 
 <!-- tocstop -->
 
@@ -10134,6 +10136,7 @@ $prefix: 'bx';
   - [data-table-v2-action [mixin]](#data-table-v2-action-mixin)
   - [data-table-core [mixin]](#data-table-core-mixin)
   - [data-table-expandable [mixin]](#data-table-expandable-mixin)
+  - [data-table-inline-filter [mixin]](#data-table-inline-filter-mixin)
   - [data-table-sort [mixin]](#data-table-sort-mixin)
   - [date-picker [mixin]](#date-picker-mixin)
   - [dropdown [mixin]](#dropdown-mixin)
@@ -15582,6 +15585,31 @@ Data table expandable styles
 </details>
 
 - **Group**: [data-table](#data-table)
+
+### ❌data-table-inline-filter [mixin]
+
+Data table sort styles
+
+<details>
+<summary>Source code</summary>
+
+```scss
+@mixin data-table-inline-filter() {
+  .#{$prefix}--table-inline-filter {
+  }
+  /// Icons
+  .#{$prefix}--table-inline-filter__icon {
+    display: flex;
+    margin: 1rem;
+  }
+}
+```
+
+</details>
+
+- **Group**: [data-table](#data-table)
+- **Requires**:
+  - [prefix [variable]](#prefix-variable)
 
 ### ❌data-table-sort [mixin]
 
@@ -26259,6 +26287,22 @@ Spacing that should exist around, and in-between, elements in the action bar
 
 ```scss
 $spacing--cell-actions: 0.5rem;
+```
+
+</details>
+
+- **Group**: [general](#general)
+
+### ✅.#{\$prefix}--table-inline-filter\_\_icon [css]
+
+Icons
+
+<details>
+<summary>Source code</summary>
+
+```scss
+$.#{$prefix}--table-inline-filter__icon: display: flex;
+        margin: 1rem;;
 ```
 
 </details>
