@@ -8,7 +8,7 @@
 /// Carbon's white color theme
 /// @type Map
 /// @access public
-/// @group @carbon/themes
+/// @group @rocketsoftware/themes
 $carbon--theme--white: (
   interactive-01: #0062ff,
   interactive-02: #3d3d3d,
@@ -75,7 +75,7 @@ $carbon--theme--white: (
 /// Carbon's g10 color theme
 /// @type Map
 /// @access public
-/// @group @carbon/themes
+/// @group @rocketsoftware/themes
 $carbon--theme--g10: (
   interactive-01: #0062ff,
   interactive-02: #3d3d3d,
@@ -142,7 +142,7 @@ $carbon--theme--g10: (
 /// Carbon's g90 color theme
 /// @type Map
 /// @access public
-/// @group @carbon/themes
+/// @group @rocketsoftware/themes
 $carbon--theme--g90: (
   interactive-01: #0062ff,
   interactive-02: #6f6f6f,
@@ -209,7 +209,7 @@ $carbon--theme--g90: (
 /// Carbon's g100 color theme
 /// @type Map
 /// @access public
-/// @group @carbon/themes
+/// @group @rocketsoftware/themes
 $carbon--theme--g100: (
   interactive-01: #0062ff,
   interactive-02: #6f6f6f,
@@ -276,7 +276,7 @@ $carbon--theme--g100: (
 /// Carbon's v9 color theme
 /// @type Map
 /// @access public
-/// @group @carbon/themes
+/// @group @rocketsoftware/themes
 $carbon--theme--v9: (
   interactive-01: #3d70b2,
   interactive-02: #5a6872,
@@ -343,7 +343,7 @@ $carbon--theme--v9: (
 /// Carbon's rocket color theme
 /// @type Map
 /// @access public
-/// @group @carbon/themes
+/// @group @rocketsoftware/themes
 $carbon--theme--rocket: (
   interactive-01: #025c53,
   interactive-02: #333333,
@@ -411,5 +411,5 @@ $carbon--theme--rocket: (
 /// @type Map
 /// @access public
 /// @alias carbon--theme--white
-/// @group @carbon/themes
+/// @group @rocketsoftware/themes
 $carbon--theme: $carbon--theme--white !default;
