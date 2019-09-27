@@ -9,9 +9,15 @@
     .#{$prefix}--table-inline-filter{
         
     }
+
+    .#{$prefix}--table-inline-filter__container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     /// Icons
-    .#{$prefix}--table-inline-filter__icon {
-        margin: 1rem;
+    .#{$prefix}--table-inline-filter__overflow {
+        margin-left: 1rem;
     }
 
 

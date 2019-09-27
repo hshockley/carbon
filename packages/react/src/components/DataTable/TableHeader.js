@@ -14,6 +14,9 @@ import {
   ArrowsVertical20 as Arrows,
   Filter20 as Filter
 } from '@rocketsoftware/icons-react';
+import OverflowMenu from '../OverflowMenu';
+import Checkbox from '../Checkbox';
+
 import { sortStates } from './state/sorting';
 
 const { prefix } = settings;
@@ -54,6 +57,7 @@ const TableHeader = React.forwardRef(function TableHeader(
     children,
     isSortable,
     isSortHeader,
+    inlineFiltering,
     onClick,
     scope,
     sortDirection,
@@ -62,15 +66,31 @@ const TableHeader = React.forwardRef(function TableHeader(
   },
   ref
 ) {
-  if (!isSortable) {
+  if (!isSortable && !inlineFiltering) {
     return (
       <th {...rest} className={headerClassName} scope={scope}>
-        <button className={`${prefix}--table-sort`} {...rest}>
-        <span className={`${prefix}--table-header-label`}>{children}</span>
-        <Filter
-        className={`${prefix}--table-sort--active`}
-         />
-         </button>
+        <span className={`${prefix}--table-header-label`}>{children}
+        </span>
+      </th>
+    );
+  }
+
+  if (inlineFiltering) {
+    return (
+      <th {...rest} className={headerClassName} scope={scope}>
+        <div className={`${prefix}--table-inline-filter__container`}>
+        <span className={`${prefix}--table-header-label`}>{children}
+        </span>
+        <OverflowMenu
+          renderIcon={Filter}
+          className={`${prefix}--table-inline-filter__overflow`}
+          title={"Filter"}
+          {...rest}>
+            <li>
+              <Checkbox>TEST</Checkbox>
+            </li>
+        </OverflowMenu>
+        </div>
       </th>
     );
   }
@@ -111,6 +131,18 @@ const TableHeader = React.forwardRef(function TableHeader(
           })}
         />
       </button>
+      { inlineFiltering ? 
+      <OverflowMenu
+          renderIcon={Filter}
+          className={"placeholder"}
+          title={"Filter"}
+          {...rest}>
+            <div>This</div>
+            <div>Is</div>
+            <div>A Test</div>
+            
+      </OverflowMenu> : null
+      }
     </th>
   );
 });
@@ -161,12 +193,18 @@ TableHeader.propTypes = {
    * this component.
    */
   translateWithId: PropTypes.func,
+
+  /**
+   * Defines whether or not inline loading is enabled
+   */
+  inlineFiltering: PropTypes.bool,
 };
 
 TableHeader.defaultProps = {
   isSortable: false,
   scope: 'col',
   translateWithId,
+  inlineFiltering: false,
 };
 
 TableHeader.translationKeys = Object.values(translationKeys);

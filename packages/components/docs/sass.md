@@ -15597,9 +15597,14 @@ Data table sort styles
 @mixin data-table-inline-filter() {
   .#{$prefix}--table-inline-filter {
   }
+
+  .#{$prefix}--table-inline-filter__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   /// Icons
   .#{$prefix}--table-inline-filter__icon {
-    display: flex;
     margin: 1rem;
   }
 }
@@ -26301,8 +26306,7 @@ Icons
 <summary>Source code</summary>
 
 ```scss
-$.#{$prefix}--table-inline-filter__icon: display: flex;
-        margin: 1rem;;
+$.#{$prefix}--table-inline-filter__icon: margin: 1rem;;
 ```
 
 </details>

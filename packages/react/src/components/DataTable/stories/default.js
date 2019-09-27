@@ -39,7 +39,7 @@ export default props => (
           <TableHead>
             <TableRow>
               {headers.map(header => (
-                <TableHeader {...getHeaderProps({ header })}>
+                <TableHeader inlineFiltering={true} {...getHeaderProps({ header })}>
                   {header.header}
                 </TableHeader>
               ))}
