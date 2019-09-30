@@ -477,7 +477,7 @@
   - [✅spacing--cell--activity [variable]](#spacing--cell--activity-variable)
   - [✅spacing--cell--status [variable]](#spacing--cell--status-variable)
   - [✅spacing--cell-actions [variable]](#spacing--cell-actions-variable)
-  - [✅.#{\$prefix}--table-inline-filter\_\_icon [css]](#%23prefix--table-inline-filter__icon-css)
+  - [✅.#{\$prefix}--table-inline-filter\_\_overflow [css]](#%23prefix--table-inline-filter__overflow-css)
 
 <!-- tocstop -->
 
@@ -15603,9 +15603,18 @@ Data table sort styles
     align-items: center;
     justify-content: space-between;
   }
+
+  .#{$prefix}--table-inline-filter__options {
+    display: flex;
+    padding: 0;
+  }
+
+  .#{$prefix}--table-inline-filter__button {
+    width: 5rem;
+  }
   /// Icons
-  .#{$prefix}--table-inline-filter__icon {
-    margin: 1rem;
+  .#{$prefix}--table-inline-filter__overflow {
+    margin-left: 1rem;
   }
 }
 ```
@@ -26298,7 +26307,7 @@ $spacing--cell-actions: 0.5rem;
 
 - **Group**: [general](#general)
 
-### ✅.#{\$prefix}--table-inline-filter\_\_icon [css]
+### ✅.#{\$prefix}--table-inline-filter\_\_overflow [css]
 
 Icons
 
@@ -26306,7 +26315,7 @@ Icons
 <summary>Source code</summary>
 
 ```scss
-$.#{$prefix}--table-inline-filter__icon: margin: 1rem;;
+$.#{$prefix}--table-inline-filter__overflow: margin-left: 1rem;;
 ```
 
 </details>

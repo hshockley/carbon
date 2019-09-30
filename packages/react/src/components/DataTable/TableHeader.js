@@ -12,11 +12,12 @@ import { settings } from '@rocketsoftware/carbon-components';
 import {
   ArrowUp20 as Arrow,
   ArrowsVertical20 as Arrows,
-  Filter20 as Filter
+  Filter20 as Filter,
 } from '@rocketsoftware/icons-react';
 import OverflowMenu from '../OverflowMenu';
 import Checkbox from '../Checkbox';
-
+import Button from '../Button';
+import TextInput from '../TextInput';
 import { sortStates } from './state/sorting';
 
 const { prefix } = settings;
@@ -66,11 +67,41 @@ const TableHeader = React.forwardRef(function TableHeader(
   },
   ref
 ) {
+
+  function handleOnChange() {
+    console.log('CLICKED');
+  }
+  const inputProps = {
+    className: 'some-class',
+    onChange: handleOnChange,
+  };
+  
+  export const FilterOption = React.forwardRef(({ children }, ref) => (
+    <li ref={ref} className={`${prefix}--toolbar-menu__option`}>
+      {children}
+    </li>
+  ));
+  
+  export const FilterItem = React.forwardRef(({ children }, ref) => (
+    <li
+      ref={ref}
+      className={
+        (`${prefix}--toolbar-menu__option`,
+        `${prefix}--table-inline-filter__options`)
+      }>
+      {children}
+    </li>
+  ));
+  
+  export const FilterTitle = React.forwardRef(({ title }, ref) => (
+    <li ref={ref} className={`${prefix}--toolbar-menu__title`}>
+      {title}
+    </li>
+  ));
   if (!isSortable && !inlineFiltering) {
     return (
       <th {...rest} className={headerClassName} scope={scope}>
-        <span className={`${prefix}--table-header-label`}>{children}
-        </span>
+        <span className={`${prefix}--table-header-label`}>{children}</span>
       </th>
     );
   }
@@ -79,17 +110,36 @@ const TableHeader = React.forwardRef(function TableHeader(
     return (
       <th {...rest} className={headerClassName} scope={scope}>
         <div className={`${prefix}--table-inline-filter__container`}>
-        <span className={`${prefix}--table-header-label`}>{children}
-        </span>
-        <OverflowMenu
-          renderIcon={Filter}
-          className={`${prefix}--table-inline-filter__overflow`}
-          title={"Filter"}
-          {...rest}>
-            <li>
-              <Checkbox>TEST</Checkbox>
-            </li>
-        </OverflowMenu>
+          <span className={`${prefix}--table-header-label`}>{children}</span>
+          <OverflowMenu
+            renderIcon={Filter}
+            className={`${prefix}--table-inline-filter__overflow`}
+            title={'Filter'}
+            {...rest}>
+            <FilterTitle title={children + ' Filters'} />
+            <FilterOption>
+              <TextInput type={'text'} />
+            </FilterOption>
+            <FilterOption>
+              <Checkbox
+                {...inputProps}
+                id="opt-1"
+                labelText="Filter option 1"
+              />
+            </FilterOption>
+            <FilterItem>
+              <Button
+                className={`${prefix}--table-inline-filter__button`}
+                kind={'secondary'}>
+                Cancel
+              </Button>
+              <Button
+                className={`${prefix}--table-inline-filter__button`}
+                kind={'primary'}>
+                Apply
+              </Button>
+            </FilterItem>
+          </OverflowMenu>
         </div>
       </th>
     );
