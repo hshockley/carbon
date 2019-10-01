@@ -16,7 +16,11 @@ import CardContent from '../../CardContent';
 
 export default props => (
   <Card {...props}>
-    <CardContent cardTitle="Card Name" cardInfo={['Secondary Information']}>
+    <CardContent
+      cardTitle="Card Name"
+      cardInfo={[
+        'Lorem ipsum sit amet, consectetur adipisicing elit, sed do eiusmod tempor',
+      ]}>
       <OverflowMenu {...props}>
         <OverflowMenuItem {...props} itemText="Stop App" />
         <OverflowMenuItem {...props} itemText="Restart App" />
@@ -25,7 +29,7 @@ export default props => (
       </OverflowMenu>
     </CardContent>
     <CardFooter>
-      <Button size="small" kind="primary" style={{ width: 1 + 'rem' }}>
+      <Button size="small" kind="primary">
         Button
       </Button>
       <Link href="#" className="bx--card-footer__link">
