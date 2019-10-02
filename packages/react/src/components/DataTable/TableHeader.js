@@ -19,7 +19,7 @@ import Checkbox from '../Checkbox';
 import Button from '../Button';
 import TextInput from '../TextInput';
 import { sortStates } from './state/sorting';
-
+import { getUniqueValues } from './tools/getUniqueForColumn';
 const { prefix } = settings;
 
 const translationKeys = {
@@ -68,8 +68,8 @@ const TableHeader = React.forwardRef(function TableHeader(
   ref
 ) {
 
-  function handleOnChange() {
-    console.log('CLICKED');
+  function handleOnChange(headers) {
+    console.log("HEADER " + headers.header +": " + headers.key);
   }
   const inputProps = {
     className: 'some-class',
@@ -117,15 +117,11 @@ const TableHeader = React.forwardRef(function TableHeader(
             title={'Filter'}
             {...rest}>
             <FilterTitle title={children + ' Filters'} />
+            {getUniqueValues({rowIds: rowIds, key: headers.key, cellsById: cellsById}).map(cell => (
+                  <FilterOption key={cell.key}>{cell.value}</FilterOption>
+                ))}
             <FilterOption>
               <TextInput type={'text'} />
-            </FilterOption>
-            <FilterOption>
-              <Checkbox
-                {...inputProps}
-                id="opt-1"
-                labelText="Filter option 1"
-              />
             </FilterOption>
             <FilterItem>
               <Button

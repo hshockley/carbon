@@ -617,6 +617,9 @@ export default class DataTable extends React.Component {
       // Custom event handlers
       onInputChange: this.handleOnInputValueChange,
 
+      getRowIds: rowIds,
+      getCellsById: cellsById,
+
       // Expose internal state change actions
       sortBy: headerKey => this.handleSortBy(headerKey)(),
       selectAll: this.handleSelectAll,

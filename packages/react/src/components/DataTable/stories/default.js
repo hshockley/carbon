@@ -23,6 +23,7 @@ export default props => (
     rows={initialRows}
     headers={headers}
     {...props}
+<<<<<<< HEAD
     render={({
       rows,
       headers,
@@ -35,11 +36,15 @@ export default props => (
         title="DataTable"
         description="With default options"
         {...getTableContainerProps()}>
+=======
+    render={({ rows, headers, getHeaderProps, getRowProps, getTableProps, getRowIds, getCellsById }) => (
+      <TableContainer title="DataTable" description="With default options">
+>>>>>>> feat(inline-filtering): added tool to get unique values for a column
         <Table {...getTableProps()}>
           <TableHead>
             <TableRow>
               {headers.map(header => (
-                <TableHeader inlineFiltering={true} {...getHeaderProps({ header })}>
+                <TableHeader inlineFiltering={true} headers={header} rowIds={rows} cellsById={rows} {...getHeaderProps({ header })}>
                   {header.header}
                 </TableHeader>
               ))}
