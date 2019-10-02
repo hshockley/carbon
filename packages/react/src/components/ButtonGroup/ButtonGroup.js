@@ -4,26 +4,14 @@ import classNames from 'classnames';
 import { settings } from '@rocketsoftware/carbon-components';
 import { ButtonTypes } from '../../prop-types/types';
 
-
 const { prefix } = settings;
 const ButtonGroup = React.forwardRef(function ButtonGroup(
-    {
-        className,
-        disabled,
-        size,
-        kind,
-        href,
-        tabIndex,
-        type,
-        role,
-        ...other},
-        ref){
-
-
-        });
+  { className, disabled, size, kind, href, tabIndex, type, role, ...other },
+  ref
+) {});
 
 ButtonGroup.PropTypes = {
-/**
+  /**
    * Add an optional class to the button
    */
   className: PropTypes.string,
@@ -62,12 +50,12 @@ ButtonGroup.PropTypes = {
    * Optional prop to specify the role of the Button
    */
   role: PropTypes.string,
-  };
-  ButtonGroup.defaultProps = {
-    tabIndex: 0,
-    type: 'button',
-    disabled: false,
-    kind: 'primary',
-  };
-  
-  export default ButtonGroup;
+};
+ButtonGroup.defaultProps = {
+  tabIndex: 0,
+  type: 'button',
+  disabled: false,
+  kind: 'primary',
+};
+
+export default ButtonGroup;
