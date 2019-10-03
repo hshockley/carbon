@@ -117,15 +117,29 @@ const inputProps = {
             title={'Filter'}
             {...rest}>
             <FilterTitle title={children + ' Filters'} />
-            {getUniqueValues({
-              rowIds: rowIds,
-              key: headers.key,
-              cellsById: cellsById,
-            }).map(cell => (
-              <FilterOption key={cell.key}>{cell.value}</FilterOption>
-            ))}
             <FilterOption>
               <TextInput type={'text'} />
+            </FilterOption>
+            <FilterOption>
+              <Checkbox
+                {...inputProps}
+                id="opt-1"
+                labelText="Filter option 1"
+              />
+            </FilterOption>
+            <FilterOption>
+              <Checkbox
+                {...inputProps}
+                id="opt-2"
+                labelText="Filter option 2"
+              />
+            </FilterOption>
+            <FilterOption>
+              <Checkbox
+                {...inputProps}
+                id="opt-3"
+                labelText="Filter option 3"
+              />
             </FilterOption>
             <FilterItem>
               <Button
