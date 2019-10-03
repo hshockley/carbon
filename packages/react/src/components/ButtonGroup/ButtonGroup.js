@@ -4,11 +4,18 @@ import classNames from 'classnames';
 import { settings } from '@rocketsoftware/carbon-components';
 import { ButtonTypes } from '../../prop-types/types';
 
+import OverflowMenu from '../OverflowMenu';
+
 const { prefix } = settings;
 const ButtonGroup = React.forwardRef(function ButtonGroup(
   { className, disabled, size, kind, href, tabIndex, type, role, ...other },
   ref
-) {});
+) {
+
+  return (
+    <div>hello</div>
+  );
+});
 
 ButtonGroup.PropTypes = {
   /**
