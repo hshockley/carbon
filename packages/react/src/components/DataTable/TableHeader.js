@@ -68,12 +68,14 @@ const TableHeader = React.forwardRef(function TableHeader(
   ref
 ) {
 
-function handleOnChange(headers) {
-  console.log('HEADER ' + headers.header + ': ' + headers.key);
+  function handleOnChange(value, id, event) {
+    console.log('HEADER VALUE: ' + value);
+    console.log('HEADER ID: ' + id);
+    console.log('HEADER EVENT: ' + event);
 }
 const inputProps = {
   className: 'some-class',
-  onChange: handleOnChange,
+  onChange: handleOnChange
 };
   
   export const FilterOption = React.forwardRef(({ children }, ref) => (
@@ -120,27 +122,19 @@ const inputProps = {
             <FilterOption>
               <TextInput type={'text'} />
             </FilterOption>
-            <FilterOption>
+            {getUniqueValues({
+              rows: rows,
+              headers: headers,
+              key: header.key,
+            }).map(cell => (
+              <FilterOption key={cell.value}>
               <Checkbox
                 {...inputProps}
-                id="opt-1"
-                labelText="Filter option 1"
+                id={cell.value}
+                labelText={cell.value}
               />
             </FilterOption>
-            <FilterOption>
-              <Checkbox
-                {...inputProps}
-                id="opt-2"
-                labelText="Filter option 2"
-              />
-            </FilterOption>
-            <FilterOption>
-              <Checkbox
-                {...inputProps}
-                id="opt-3"
-                labelText="Filter option 3"
-              />
-            </FilterOption>
+            ))}
             <FilterItem>
               <Button
                 className={`${prefix}--table-inline-filter__button`}

@@ -23,13 +23,24 @@ export default props => (
     rows={initialRows}
     headers={headers}
     {...props}
-    render={({ rows, headers, getHeaderProps, getRowProps, getTableProps, getRowIds, getCellsById }) => (
+    render={({
+      rows,
+      headers,
+      getHeaderProps,
+      getRowProps,
+      getTableProps,
+    }) => (
       <TableContainer title="DataTable" description="With default options">
         <Table {...getTableProps()}>
           <TableHead>
             <TableRow>
               {headers.map(header => (
-                <TableHeader inlineFiltering={true} headers={header} rowIds={rows} cellsById={rows} {...getHeaderProps({ header })}>
+                <TableHeader
+                  inlineFiltering={true}
+                  headers={headers}
+                  rows={initialRows}
+                  header={header}
+                  {...getHeaderProps({ header })}>
                   {header.header}
                 </TableHeader>
               ))}

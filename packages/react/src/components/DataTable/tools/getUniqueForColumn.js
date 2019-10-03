@@ -1,9 +1,12 @@
 import { getCellId } from './cells';
-
-export const getUniqueValues = ({ rowIds, key, cellsById }) => {
+import normalize from './normalize';
+export const getUniqueValues = ({ rows, headers, key }) => {
   const uniqueValues = [];
   const map = new Map();
-
+  const state = normalize(rows, headers);
+  const rowIds = state.rowIds;
+  const cellsById = state.cellsById;
+  const rowsById = state.rowsById;
   for (const rowId of rowIds) {
     const id = getCellId(rowId, key);
     if (!map.has(cellsById[id].value)) {
@@ -14,5 +17,6 @@ export const getUniqueValues = ({ rowIds, key, cellsById }) => {
       });
     }
   }
+
   return uniqueValues;
 };
