@@ -108,7 +108,7 @@ const inputProps = {
     );
   }
 
-  if (inlineFiltering) {
+  if (inlineFiltering && !isSortable) {
     return (
       <th {...rest} className={headerClassName} scope={scope}>
         <div className={`${prefix}--table-inline-filter__container`}>
