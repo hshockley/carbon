@@ -68,13 +68,13 @@ const TableHeader = React.forwardRef(function TableHeader(
   ref
 ) {
 
-  function handleOnChange(headers) {
-    console.log("HEADER " + headers.header +": " + headers.key);
-  }
-  const inputProps = {
-    className: 'some-class',
-    onChange: handleOnChange,
-  };
+function handleOnChange(headers) {
+  console.log('HEADER ' + headers.header + ': ' + headers.key);
+}
+const inputProps = {
+  className: 'some-class',
+  onChange: handleOnChange,
+};
   
   export const FilterOption = React.forwardRef(({ children }, ref) => (
     <li ref={ref} className={`${prefix}--toolbar-menu__option`}>
@@ -117,9 +117,13 @@ const TableHeader = React.forwardRef(function TableHeader(
             title={'Filter'}
             {...rest}>
             <FilterTitle title={children + ' Filters'} />
-            {getUniqueValues({rowIds: rowIds, key: headers.key, cellsById: cellsById}).map(cell => (
-                  <FilterOption key={cell.key}>{cell.value}</FilterOption>
-                ))}
+            {getUniqueValues({
+              rowIds: rowIds,
+              key: headers.key,
+              cellsById: cellsById,
+            }).map(cell => (
+              <FilterOption key={cell.key}>{cell.value}</FilterOption>
+            ))}
             <FilterOption>
               <TextInput type={'text'} />
             </FilterOption>
