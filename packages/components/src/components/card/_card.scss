@@ -50,12 +50,11 @@
     align-items: center;
     justify-content: space-between;
     background-color: $ui-03;
-    // padding: 1rem;
+    padding: 1rem;
   }
 
   .#{$prefix}--card-footer__link {
     font-size: 0.875rem;
-    margin-left: 1rem;
 
     &:focus {
       @include focus-outline('border');

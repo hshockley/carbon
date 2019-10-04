@@ -29,12 +29,12 @@ export default props => (
       </OverflowMenu>
     </CardContent>
     <CardFooter>
+      <Button size="small" kind="primary" style={{ width: 10 + '%' }}>
+        Button
+      </Button>
       <Link href="#" className="bx--card-footer__link">
         Link
       </Link>
-      <Button size="small" kind="primary">
-        Button
-      </Button>
     </CardFooter>
   </Card>
 );
