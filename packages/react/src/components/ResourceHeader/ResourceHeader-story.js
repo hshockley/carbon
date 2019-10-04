@@ -133,6 +133,7 @@ storiesOf('ResourceHeader', module)
     'Simple',
     () => {
       return (
+        <div style={{width: 80+"rem"}}>
         <ResourceHeader
           renderBreadcrumbs={() => (
             <Breadcrumb>
@@ -149,7 +150,9 @@ storiesOf('ResourceHeader', module)
             />
           )}
           {...props.simple()}
+          
         />
+        </div>
       );
     },
     {
