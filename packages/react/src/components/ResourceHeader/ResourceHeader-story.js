@@ -54,6 +54,9 @@ const props = {
   }),
   simple: () => ({
     title: text('Title', 'Resource Name'),
+    subtitle: [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium varius dolor, elementum vestibulum massa congue nec. Fusce at massa vitae urna mattis vestibulum. Pellentesque semper dolor ipsum, et rutrum libero molestie et. Curabitur in facilisis magna. Sed est libero, pellentesque vel accumsan ut, aliquet feugiat nunc.',
+    ],
   }),
   withIcon: () => ({
     title: text('Title', 'Resource Name'),
@@ -133,25 +136,16 @@ storiesOf('ResourceHeader', module)
     'Simple',
     () => {
       return (
-        <div style={{width: 80+"rem"}}>
-        <ResourceHeader
-          renderBreadcrumbs={() => (
-            <Breadcrumb>
-              <BreadcrumbItem href="#">Breadcrumb 1</BreadcrumbItem>
-              <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
-            </Breadcrumb>
-          )}
-          renderActions={() => (
-            <Dropdown
-              label="Actions"
-              type="inline"
-              items={items}
-              itemToString={item => (item ? item.text : '')}
-            />
-          )}
-          {...props.simple()}
-          
-        />
+        <div style={{ width: 80 + 'rem' }}>
+          <ResourceHeader
+            renderBreadcrumbs={() => (
+              <Breadcrumb>
+                <BreadcrumbItem href="#">Breadcrumb 1</BreadcrumbItem>
+                <BreadcrumbItem href="#">Breadcrumb 2</BreadcrumbItem>
+              </Breadcrumb>
+            )}
+            {...props.simple()}
+          />
         </div>
       );
     },
