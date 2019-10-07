@@ -38,8 +38,8 @@
 
     .#{$prefix}--overflow-menu {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 0.75rem;
+      right: 0.25rem;
       z-index: z('floating');
       margin: 0;
     }
@@ -84,6 +84,9 @@
     margin: 0;
     margin-bottom: $spacing-06;
     line-height: 1.2;
+
+    max-height: 2.4em;
+    white-space: unset;
   }
 
   .#{$prefix}--about__title--link {
