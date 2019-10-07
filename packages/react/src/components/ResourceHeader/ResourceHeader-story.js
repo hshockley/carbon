@@ -22,7 +22,7 @@ storiesOf('ResourceHeader', module)
     'Page Header',
     () => {
       return (
-        <div style={{ width: 80 + 'rem' }}>
+        <div style={{ width: 80 + '%' }}>
           <ResourceHeader
             renderBreadcrumbs={() => (
               <Breadcrumb>
