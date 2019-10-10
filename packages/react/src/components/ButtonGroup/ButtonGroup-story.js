@@ -48,8 +48,7 @@ storiesOf('ButtonGroup', module)
     () => {
       const regularProps = props.regular();
       return (
-          <ButtonGroup {...regularProps} className="some-class">
-          </ButtonGroup>
+        <ButtonGroup {...regularProps} className="some-class"></ButtonGroup>
       );
     },
     {
