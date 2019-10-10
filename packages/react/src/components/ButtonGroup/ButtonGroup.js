@@ -1,19 +1,42 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Children, useRef } from 'react';
 import classNames from 'classnames';
 import { settings } from '@rocketsoftware/carbon-components';
 import { ButtonTypes } from '../../prop-types/types';
-
+import Button from '../Button';
 import OverflowMenu from '../OverflowMenu';
+import OverflowMenuItem from '../OverflowMenuItem';
+import { ChevronDown16, ChevronUp16 } from '@rocketsoftware/icons-react';
 
 const { prefix } = settings;
 const ButtonGroup = React.forwardRef(function ButtonGroup(
-  { className, disabled, size, kind, href, tabIndex, type, role, ...other },
+  { className, disabled, size, kind, href, tabIndex, type, role, children, ...other },
   ref
 ) {
+  const wrapper = useRef(null);
+
+  const getMenuOffset = () => {
+    const { top } = wrapper.current.getBoundClientRect();
+    const isTop = direction === 'top'
+    return {
+      top: top * -1,
+      left: 'auto',
+    };
+  };
 
   return (
-    <div>hello</div>
+    <div style={{display: "flex"}}>
+    <Button data-floating-menu-container>Primary Action</Button>
+    <OverflowMenu
+    className={classNames(`${prefix}--btn--primary`, `${prefix}--btn`)}
+    flipped={true}
+    renderIcon= {ChevronDown16}>
+    <OverflowMenuItem>Test 1</OverflowMenuItem>
+    <OverflowMenuItem>Test 2</OverflowMenuItem>
+    <OverflowMenuItem>Test 3</OverflowMenuItem>
+    <OverflowMenuItem>Test 4</OverflowMenuItem>
+    </OverflowMenu>
+    </div>
   );
 });
 

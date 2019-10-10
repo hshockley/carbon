@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
 import { settings } from '@rocketsoftware/carbon-components';
-import Button from '../ButtonGroup';
-
+import ButtonGroup from '../ButtonGroup';
+import Button from '../Button';
+import OverflowMenuItem from '../OverflowMenuItem';
 const { prefix } = settings;
 
 const kinds = {
@@ -38,7 +39,7 @@ const props = {
   },
 };
 
-Button.displayName = 'Button';
+ButtonGroup.displayName = 'Button';
 
 storiesOf('ButtonGroup', module)
   .addDecorator(withKnobs)
@@ -47,32 +48,8 @@ storiesOf('ButtonGroup', module)
     () => {
       const regularProps = props.regular();
       return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}>
-          <Button {...regularProps} className="some-class">
-            Button
-          </Button>
-          &nbsp;
-          <Button {...regularProps} href="#" className="some-class">
-            Link
-          </Button>
-          &nbsp;
-          <Button {...regularProps} as="p" href="#" className="some-class">
-            Element
-          </Button>
-          &nbsp;
-          <Button
-            {...regularProps}
-            as={CustomLink}
-            href="#"
-            className="some-class">
-            Custom component
-          </Button>
-        </div>
+          <ButtonGroup {...regularProps} className="some-class">
+          </ButtonGroup>
       );
     },
     {
