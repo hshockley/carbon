@@ -37,6 +37,7 @@ const SplitButton = ({className, disabled, size, kind, href, tabIndex, type, rol
         flipped={true}
         onClick={() => setIsOpen(!isOpen)}
         iconClass={classNames}
+        menuOptionsClass={`${prefix}--overflow-menu-options--container`}
         renderIcon={ChevronDown16}>
         <OverflowMenuItem>Test 1</OverflowMenuItem>
         <OverflowMenuItem>Test 2</OverflowMenuItem>

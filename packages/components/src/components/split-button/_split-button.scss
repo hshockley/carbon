@@ -29,14 +29,19 @@
     }
 }
 
-.#{$prefix}--overflow-menu-options::after {
-    display: none;
-   }
-
 .#{$prefix}--btn--split--overflow__active{
     svg {
         transform: rotate(-180deg);
         transition: transform $duration--fast-02 motion(standard, productive);
         };
+    }
 }
-}
+
+.#{$prefix}--overflow-menu-options--container{
+    &::after {
+        display: none;
+    }
+    .#{$prefix}--overflow-menu-options::after {
+        display: none;
+       }
+    }
