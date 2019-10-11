@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
 import { settings } from '@rocketsoftware/carbon-components';
-import ButtonGroup from '../ButtonGroup';
+import SplitButton from '../SplitButton';
 import Button from '../Button';
 import OverflowMenuItem from '../OverflowMenuItem';
 const { prefix } = settings;
@@ -39,16 +39,16 @@ const props = {
   },
 };
 
-ButtonGroup.displayName = 'Button';
+SplitButton.displayName = 'Button';
 
-storiesOf('ButtonGroup', module)
+storiesOf('Button - SplitButton', module)
   .addDecorator(withKnobs)
   .add(
     'Default',
     () => {
       const regularProps = props.regular();
       return (
-        <ButtonGroup {...regularProps} className="some-class"></ButtonGroup>
+        <SplitButton {...regularProps} className="some-class"></SplitButton>
       );
     },
     {

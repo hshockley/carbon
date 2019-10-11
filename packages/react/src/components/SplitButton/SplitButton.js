@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { Children, useRef } from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
+import cx from 'classnames';
 import { settings } from '@rocketsoftware/carbon-components';
 import { ButtonTypes } from '../../prop-types/types';
 import Button from '../Button';
@@ -9,22 +9,8 @@ import OverflowMenuItem from '../OverflowMenuItem';
 import { ChevronDown16, ChevronUp16 } from '@rocketsoftware/icons-react';
 
 const { prefix } = settings;
-const ButtonGroup = React.forwardRef(function ButtonGroup(
-  {
-    className,
-    disabled,
-    size,
-    kind,
-    href,
-    tabIndex,
-    type,
-    role,
-    children,
-    ...other
-  },
-  ref
-) {
-  const wrapper = useRef(null);
+const SplitButton = ({className, disabled, size, kind, href, tabIndex, type, role, children, ...other}) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const getMenuOffset = () => {
     const { top } = wrapper.current.getBoundClientRect();
@@ -34,13 +20,23 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
       left: 'auto',
     };
   };
+  
+  const childrenArray = React.Children.toArray(children);
+  const primaryAction = childrenArray.splice(0);
+
+
+  const classNames = cx({
+    [`${prefix}--btn--split--overflow__active`]: isOpen,
+  });
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className={`${prefix}--btn--split--container`} style={{ display: 'flex' }}>
       <Button data-floating-menu-container>Primary Action</Button>
       <OverflowMenu
-        className={classNames(`${prefix}--btn--primary`, `${prefix}--btn`)}
+        className={`${prefix}--btn--split--overflow`}
         flipped={true}
+        onClick={() => setIsOpen(!isOpen)}
+        iconClass={classNames}
         renderIcon={ChevronDown16}>
         <OverflowMenuItem>Test 1</OverflowMenuItem>
         <OverflowMenuItem>Test 2</OverflowMenuItem>
@@ -49,9 +45,10 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
       </OverflowMenu>
     </div>
   );
-});
+};
 
-ButtonGroup.PropTypes = {
+
+SplitButton.PropTypes = {
   /**
    * Add an optional class to the button
    */
@@ -92,11 +89,11 @@ ButtonGroup.PropTypes = {
    */
   role: PropTypes.string,
 };
-ButtonGroup.defaultProps = {
+SplitButton.defaultProps = {
   tabIndex: 0,
   type: 'button',
   disabled: false,
   kind: 'primary',
 };
 
-export default ButtonGroup;
+export default SplitButton;

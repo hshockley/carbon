@@ -1,0 +1,42 @@
+@import '../../globals/scss/vars';
+@import '../../globals/scss/colors';
+@import '../../globals/scss/theme';
+@import '../../globals/scss/helper-mixins';
+@import '../../globals/scss/layout';
+@import '../../globals/scss/layer';
+@import '../../globals/scss/typography';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
+@import '../../globals/scss/css--reset';
+@import '../../globals/scss/css--font-face';
+@import 'mixins';
+
+
+.#{$prefix}--btn--split--container{
+.#{$prefix}--btn--split--overflow {
+    width: 3rem;
+    height: 3rem;
+    background-color: $interactive-01;
+    margin-left:1px;
+
+    svg {
+        fill: $icon-03;
+    }
+
+    .#{$prefix}--overflow-menu {
+        &:hover {
+            background-color: $interactive-01;
+        }
+    }
+}
+
+.#{$prefix}--overflow-menu-options::after {
+    display: none;
+   }
+
+.#{$prefix}--btn--split--overflow__active{
+    svg {
+        transform: rotate(-180deg);
+        transition: transform $duration--fast-02 motion(standard, productive);
+        };
+}
+}
