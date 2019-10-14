@@ -32,7 +32,7 @@ const props = {
         'Icon description (iconDescription)',
         'Button icon'
       ),
-      onClick: action('onClick'),
+      // onClick: action('onClick'),
       onFocus: action('onFocus'),
       small: boolean('Small (small) - Deprecated in favor of `size`', false),
     };
