@@ -9,7 +9,18 @@ import OverflowMenuItem from '../OverflowMenuItem';
 import { ChevronDown16, ChevronUp16 } from '@rocketsoftware/icons-react';
 
 const { prefix } = settings;
-const SplitButton = ({className, disabled, size, kind, href, tabIndex, type, role, children, ...other}) => {
+const SplitButton = ({
+  className,
+  disabled,
+  size,
+  kind,
+  href,
+  tabIndex,
+  type,
+  role,
+  children,
+  ...other
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const getMenuOffset = () => {
@@ -20,30 +31,30 @@ const SplitButton = ({className, disabled, size, kind, href, tabIndex, type, rol
       left: 'auto',
     };
   };
-  
+
   const childrenArray = React.Children.toArray(children);
   const primaryAction = childrenArray.splice(0);
 
   const handleOnClick = () => {
-    console.log('OPEN STATE: ' + isOpen);
+    console.log('OPEN');
   };
   const classNames = cx({
-    [`${prefix}--btn--split--overflow__active`]: isOpen,
+    [`${prefix}--btn--split--overflow__open`]: isOpen,
+    [`${prefix}--btn--split--overflow__open`]: isOpen == false,
   });
 
   return (
-    <div className={`${prefix}--btn--split--container`} style={{ display: 'flex' }}>
-      <Button 
-      type={type}
-      role={role}
-      {...other}
-      data-floating-menu-container>
+    <div
+      className={`${prefix}--btn--split--container`}
+      style={{ display: 'flex' }}>
+      <Button type={type} role={role} {...other} data-floating-menu-container>
         Primary Action
-        </Button>
+      </Button>
       <OverflowMenu
         className={`${prefix}--btn--split--overflow`}
         flipped={true}
-        onClick={() => setIsOpen(!isOpen)}
+        onOpen={e => handleOnClick(e)}
+        onClose={e => handleOnClick(e)}
         iconClass={classNames}
         menuOptionsClass={`${prefix}--overflow-menu-options--container`}
         renderIcon={ChevronDown16}
@@ -56,7 +67,6 @@ const SplitButton = ({className, disabled, size, kind, href, tabIndex, type, rol
     </div>
   );
 };
-
 
 SplitButton.PropTypes = {
   /**
@@ -95,26 +105,26 @@ SplitButton.PropTypes = {
   role: PropTypes.string,
 
   /**
-     * The adjustment in position applied to the floating menu.
-     */
-    menuOffset: PropTypes.oneOfType([
-      PropTypes.shape({
-        top: PropTypes.number,
-        left: PropTypes.number,
-      }),
-      PropTypes.func,
-    ]),
+   * The adjustment in position applied to the floating menu.
+   */
+  menuOffset: PropTypes.oneOfType([
+    PropTypes.shape({
+      top: PropTypes.number,
+      left: PropTypes.number,
+    }),
+    PropTypes.func,
+  ]),
 
-    /**
-     * The adjustment in position applied to the floating menu.
-     */
-    menuOffsetFlip: PropTypes.oneOfType([
-      PropTypes.shape({
-        top: PropTypes.number,
-        left: PropTypes.number,
-      }),
-      PropTypes.func,
-    ]),
+  /**
+   * The adjustment in position applied to the floating menu.
+   */
+  menuOffsetFlip: PropTypes.oneOfType([
+    PropTypes.shape({
+      top: PropTypes.number,
+      left: PropTypes.number,
+    }),
+    PropTypes.func,
+  ]),
 };
 SplitButton.defaultProps = {
   tabIndex: 0,
