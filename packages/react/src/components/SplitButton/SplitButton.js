@@ -19,45 +19,56 @@ const SplitButton = ({
   type,
   role,
   children,
+  getViewport,
   ...other
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const getMenuOffset = () => {
-    const { top } = wrapper.current.getBoundClientRect();
-    const isTop = direction === 'top';
-    return {
-      top: top * -1,
-      left: 'auto',
-    };
-  };
-
   const childrenArray = React.Children.toArray(children);
   const primaryAction = childrenArray.splice(0);
 
-  const handleOnClick = () => {
-    console.log('OPEN');
+  const forOnOpen = (e) => {
+    setIsOpen(true);
   };
-  const classNames = cx({
-    [`${prefix}--btn--split--overflow__open`]: isOpen,
-    [`${prefix}--btn--split--overflow__open`]: isOpen == false,
+
+  const forOnClose = (e) => {
+    setIsOpen(false);
+  }
+
+  const overflowClasses = cx({
+    [`${prefix}--btn--split--overflow`]: true,
+    [`${prefix}--btn--split--overflow--disabled`]: disabled,
   });
 
+  const overflowIconClasses = cx({
+    [`${prefix}--btn--split--overflow__open`]: isOpen,
+    [`${prefix}--btn--split--overflow--icon`]: true,
+  });
+  
   return (
     <div
       className={`${prefix}--btn--split--container`}
       style={{ display: 'flex' }}>
-      <Button type={type} role={role} {...other} data-floating-menu-container>
+      <Button 
+      type={type} 
+      role={role} 
+      disabled={disabled}
+      kind={kind}
+      size={size}
+      {...other} 
+      data-floating-menu-container>
         Primary Action
       </Button>
       <OverflowMenu
-        className={`${prefix}--btn--split--overflow`}
+        className={overflowClasses}
         flipped={true}
-        onOpen={e => handleOnClick(e)}
-        onClose={e => handleOnClick(e)}
-        iconClass={classNames}
+        disabled={disabled}
+        onOpen={forOnOpen}
+        onClose={forOnClose}
+        iconClass={overflowIconClasses}
         menuOptionsClass={`${prefix}--overflow-menu-options--container`}
         renderIcon={ChevronDown16}
+        getViewport={getViewport}
         {...other}>
         <OverflowMenuItem primaryFocus>Test 1</OverflowMenuItem>
         <OverflowMenuItem>Test 2</OverflowMenuItem>
@@ -125,6 +136,11 @@ SplitButton.PropTypes = {
     }),
     PropTypes.func,
   ]),
+
+  /**
+     * Optional callback used to obtain a custom 'viewport' that differs from the window.
+     */
+    getViewport: PropTypes.func,
 };
 SplitButton.defaultProps = {
   tabIndex: 0,

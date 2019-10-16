@@ -14,23 +14,49 @@
   .#{$prefix}--btn--split--overflow {
     width: 3rem;
     height: 3rem;
-    background-color: $interactive-01;
+    background-color: $interactive-02;
     margin-left: 1px;
     border-radius: $button-border-radius;
     border-color: transparent;
     outline: $button-outline-width solid transparent;
     outline-offset: -4px;
     box-shadow: unset;
-    transition: background-color $duration--fast-01 motion(standard, productive);
+    transition: background $duration--fast-01 motion(standard, productive);
+
+    &:disabled,
+    &.#{$prefix}--btn--split--overflow--disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+      color: $disabled-03;
+      fill: $disabled-03;
+      background: $disabled-02;
+      border-color: $disabled-02;
+    }
+
+    &:disabled:hover,
+    &:disabled:focus,
+    &:hover.#{$prefix}--btn--split--overflow--disabled,
+    &:focus.#{$prefix}--btn--split--overflow--disabled {
+      color: $ui-04;
+      background-color: $disabled-02;
+      border-color: $disabled-02;
+      text-decoration: none;
+      pointer-events: none;
+      outline-color: $disabled-02;
+
+      svg {
+        fill: $ui-04;
+      }
+  }
 
     &:hover {
-      background-color: $hover-primary;
+      background-color: $hover-secondary;
       fill: $text-04;
     }
 
     &:active {
       border: 3px solid $focus;
-      background-color: $active-primary;
+      background-color: $active-secondary;
       outline-color: $ui-02;
     }
 
@@ -41,25 +67,15 @@
 
     svg {
       fill: $icon-03;
-      &:active {
-        transform: rotate(-180deg);
-      }
     }
   }
-
+  .#{$prefix}--btn--split--overflow--icon {
+    transition: transform $duration--fast-01 motion(standard, productive);
+  }
   .#{$prefix}--btn--split--overflow__open {
-    svg {
-      transform: rotate(-180deg);
-      transition: transform $duration--slow-01 motion(standard, productive);
-    }
+    transform: rotate(180deg);
   }
 
-  .#{$prefix}--btn--split--overflow__close {
-    svg {
-      transform: rotate(180deg);
-      transition: transform $duration--slow-01 motion(standard, productive);
-    }
-  }
 }
 
 .#{$prefix}--overflow-menu-options--container {
