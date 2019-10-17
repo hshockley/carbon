@@ -14,7 +14,7 @@
   .#{$prefix}--btn--split--overflow {
     width: 3rem;
     height: 3rem;
-    background-color: $interactive-02;
+    background-color: $interactive-01;
     margin-left: 1px;
     border-radius: $button-border-radius;
     border-color: transparent;
@@ -50,13 +50,13 @@
   }
 
     &:hover {
-      background-color: $hover-secondary;
+      background-color: $hover-primary;
       fill: $text-04;
     }
 
     &:active {
       border: 3px solid $focus;
-      background-color: $active-secondary;
+      background-color: $active-primary;
       outline-color: $ui-02;
     }
 

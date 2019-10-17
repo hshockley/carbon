@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import { withA11y } from '@storybook/addon-a11y';
 import { settings } from '@rocketsoftware/carbon-components';
 import SplitButton from '../SplitButton';
 import Button from '../Button';
@@ -25,30 +26,33 @@ const props = {
   regular: () => {
     return {
       className: 'some-class',
-      kind: select('Button kind (kind)', kinds, 'primary'),
       disabled: boolean('Disabled (disabled)', false),
-      size: select('Button size (size)', sizes, 'default'),
-      iconDescription: text(
-        'Icon description (iconDescription)',
-        'Button icon'
-      ),
-      // onClick: action('onClick'),
-      onFocus: action('onFocus'),
-      small: boolean('Small (small) - Deprecated in favor of `size`', false),
     };
   },
+  items: () => {
+    return {
+      onClick: action('onClick'),
+    }
+  }
 };
 
 SplitButton.displayName = 'Button';
 
 storiesOf('Button - SplitButton', module)
+  .addDecorator(withA11y)
   .addDecorator(withKnobs)
   .add(
     'Default',
     () => {
       const regularProps = props.regular();
+      const itemProps = props.items();
       return (
-        <SplitButton {...regularProps} className="some-class"></SplitButton>
+        <SplitButton {...regularProps} className="some-class">
+          <OverflowMenuItem itemText={'Item 1'} {...itemProps}/>
+          <OverflowMenuItem itemText={'Item 2'} {...itemProps} primaryFocus/>
+          <OverflowMenuItem itemText={'Item 3'} {...itemProps}/>
+          <OverflowMenuItem itemText={'Item 4'} {...itemProps}/>
+          </SplitButton>
       );
     },
     {

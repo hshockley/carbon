@@ -2,32 +2,33 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import cx from 'classnames';
 import { settings } from '@rocketsoftware/carbon-components';
-import { ButtonTypes } from '../../prop-types/types';
 import Button from '../Button';
 import OverflowMenu from '../OverflowMenu';
-import OverflowMenuItem from '../OverflowMenuItem';
-import { ChevronDown16, ChevronUp16 } from '@rocketsoftware/icons-react';
+import { ChevronDown16 } from '@rocketsoftware/icons-react';
 
 const { prefix } = settings;
 const SplitButton = ({
-  className,
+  classNameContainer,
+  classNameButton,
+  classNameOverflow,
   disabled,
-  size,
-  kind,
   href,
   tabIndex,
   type,
   role,
   children,
+  menuOffset,
+  menuOffsetFlip,
   getViewport,
   ...other
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const childrenArray = React.Children.toArray(children);
-  const primaryAction = childrenArray.splice(0);
+  const primaryAction = childrenArray.splice(0, 1);
 
   const forOnOpen = (e) => {
+    console.log(primaryAction);
     setIsOpen(true);
   };
 
@@ -35,7 +36,13 @@ const SplitButton = ({
     setIsOpen(false);
   }
 
+  const containerClasses = cx({
+    classNameContainer,
+    [`${prefix}--btn--split--container`]: true,
+  });
+
   const overflowClasses = cx({
+    classNameOverflow,
     [`${prefix}--btn--split--overflow`]: true,
     [`${prefix}--btn--split--overflow--disabled`]: disabled,
   });
@@ -47,33 +54,32 @@ const SplitButton = ({
   
   return (
     <div
-      className={`${prefix}--btn--split--container`}
-      style={{ display: 'flex' }}>
+      className={containerClasses}
+      style={{ display: 'flex' }}
+      tabIndex={tabIndex}>
       <Button 
       type={type} 
       role={role} 
       disabled={disabled}
-      kind={kind}
-      size={size}
+      className={classNameButton}
       {...other} 
       data-floating-menu-container>
         Primary Action
       </Button>
       <OverflowMenu
         className={overflowClasses}
-        flipped={true}
+        flipped={true} 
         disabled={disabled}
         onOpen={forOnOpen}
         onClose={forOnClose}
         iconClass={overflowIconClasses}
         menuOptionsClass={`${prefix}--overflow-menu-options--container`}
         renderIcon={ChevronDown16}
+        menuOffset={}
+        menuOffsetFlip={}
         getViewport={getViewport}
         {...other}>
-        <OverflowMenuItem primaryFocus>Test 1</OverflowMenuItem>
-        <OverflowMenuItem>Test 2</OverflowMenuItem>
-        <OverflowMenuItem>Test 3</OverflowMenuItem>
-        <OverflowMenuItem>Test 4</OverflowMenuItem>
+        {children}
       </OverflowMenu>
     </div>
   );
@@ -81,24 +87,29 @@ const SplitButton = ({
 
 SplitButton.PropTypes = {
   /**
+   * Container classes
+   */
+  classNameContainer: PropTypes.string,
+  
+  /**
    * Add an optional class to the button
    */
-  className: PropTypes.string,
+  classNameButton: PropTypes.string,
+
+  /**
+   * Add an optional class to the button
+   */
+  classNameOverflow: PropTypes.string,
+
+  /**
+   * Child nodes to be rendered in secondary actions menu
+   */
+  children: PropTypes.node,
 
   /**
    * For specifying whether the button is disabled
    */
   disabled: PropTypes.bool,
-
-  /**
-   * Kind of button
-   */
-  kind: ButtonTypes.buttonKind.isRequired,
-
-  /**
-   * Optionally specify an href for your Button to become an <a> element
-   */
-  href: PropTypes.string,
 
   /**
    * Optional prop to specify the tabIndex of the Button
@@ -146,7 +157,6 @@ SplitButton.defaultProps = {
   tabIndex: 0,
   type: 'button',
   disabled: false,
-  kind: 'primary',
 };
 
 export default SplitButton;
