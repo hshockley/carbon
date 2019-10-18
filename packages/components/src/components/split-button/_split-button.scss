@@ -11,6 +11,7 @@
 @import 'mixins';
 
 .#{$prefix}--btn--split--container {
+  display: flex;
   .#{$prefix}--btn--split--overflow {
     width: 3rem;
     height: 3rem;
@@ -79,7 +80,7 @@
 }
 
 .#{$prefix}--overflow-menu-options--container {
-  width: 13.75rem;
+  width: 100%;
   &::after {
     display: none;
   }

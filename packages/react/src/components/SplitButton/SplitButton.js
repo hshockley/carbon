@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import cx from 'classnames';
 import { settings } from '@rocketsoftware/carbon-components';
 import Button from '../Button';
-import OverflowMenu from '../OverflowMenu';
+import OverflowMenu  from '../OverflowMenu';
 import { ChevronDown16 } from '@rocketsoftware/icons-react';
 
 const { prefix } = settings;
@@ -17,32 +17,44 @@ const SplitButton = ({
   type,
   role,
   children,
-  menuOffset,
-  menuOffsetFlip,
   getViewport,
   ...other
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef(null)
+
+  const getOffset = () => { 
+    const top = buttonRef.current.getBoundingClientRect();
+
+    return {
+      top: top,
+      left: 'auto'
+    }
+  };
 
   const childrenArray = React.Children.toArray(children);
-  const primaryAction = childrenArray.splice(0, 1);
+  const primaryAction = childrenArray.splice(0, 1)[0].props;
+  
+  const primaryButtonProps = ({
+    onClick: primaryAction.onClick,
+    text: primaryAction.itemText,
+  });
 
-  const forOnOpen = (e) => {
-    console.log(primaryAction);
+  const forOnOpen = () => {
     setIsOpen(true);
   };
 
-  const forOnClose = (e) => {
+  const forOnClose = () => {
     setIsOpen(false);
   }
 
   const containerClasses = cx({
-    classNameContainer,
+    [classNameContainer]: true,
     [`${prefix}--btn--split--container`]: true,
   });
 
   const overflowClasses = cx({
-    classNameOverflow,
+    [classNameOverflow]: true,
     [`${prefix}--btn--split--overflow`]: true,
     [`${prefix}--btn--split--overflow--disabled`]: disabled,
   });
@@ -55,16 +67,17 @@ const SplitButton = ({
   return (
     <div
       className={containerClasses}
-      style={{ display: 'flex' }}
-      tabIndex={tabIndex}>
+      tabIndex={tabIndex}
+      ref={buttonRef}
+      data-floating-menu-container
+      {...other}>
       <Button 
       type={type} 
       role={role} 
       disabled={disabled}
       className={classNameButton}
-      {...other} 
-      data-floating-menu-container>
-        Primary Action
+      {...primaryButtonProps}>
+        {primaryButtonProps.text}
       </Button>
       <OverflowMenu
         className={overflowClasses}
@@ -75,11 +88,11 @@ const SplitButton = ({
         iconClass={overflowIconClasses}
         menuOptionsClass={`${prefix}--overflow-menu-options--container`}
         renderIcon={ChevronDown16}
-        menuOffset={}
-        menuOffsetFlip={}
-        getViewport={getViewport}
-        {...other}>
-        {children}
+        menuOffset={getOffset}
+        getViewport={getViewport}>
+        {childrenArray.map(child => {
+          return child
+        })}
       </OverflowMenu>
     </div>
   );
@@ -104,7 +117,7 @@ SplitButton.PropTypes = {
   /**
    * Child nodes to be rendered in secondary actions menu
    */
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 
   /**
    * For specifying whether the button is disabled
@@ -112,41 +125,19 @@ SplitButton.PropTypes = {
   disabled: PropTypes.bool,
 
   /**
-   * Optional prop to specify the tabIndex of the Button
+   * Optional prop to specify the tabIndex of the SplitButton
    */
   tabIndex: PropTypes.number,
 
   /**
-   * Optional prop to specify the type of the Button
+   * Optional prop to specify the type of the Primary Button
    */
   type: PropTypes.oneOf(['button', 'reset', 'submit']),
 
   /**
-   * Optional prop to specify the role of the Button
+   * Optional prop to specify the role of the Primary Button
    */
   role: PropTypes.string,
-
-  /**
-   * The adjustment in position applied to the floating menu.
-   */
-  menuOffset: PropTypes.oneOfType([
-    PropTypes.shape({
-      top: PropTypes.number,
-      left: PropTypes.number,
-    }),
-    PropTypes.func,
-  ]),
-
-  /**
-   * The adjustment in position applied to the floating menu.
-   */
-  menuOffsetFlip: PropTypes.oneOfType([
-    PropTypes.shape({
-      top: PropTypes.number,
-      left: PropTypes.number,
-    }),
-    PropTypes.func,
-  ]),
 
   /**
      * Optional callback used to obtain a custom 'viewport' that differs from the window.
