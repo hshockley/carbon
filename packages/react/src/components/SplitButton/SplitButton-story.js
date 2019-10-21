@@ -13,7 +13,6 @@ const props = {
       classNameButton: 'some-class',
       classNameOverflow: 'some-class',
       disabled: boolean('Disabled (disabled)', false),
-      onClick: action('onClick'),
     };
   },
   items: () => {
