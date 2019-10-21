@@ -7,7 +7,9 @@ describe('TabContent', () => {
   describe('renders as expected', () => {
     const wrapper = shallow(
       <SplitButton>
-
+        <OverflowMenuItem itemText={'Item 1'} />
+        <OverflowMenuItem itemText={'Item 2'} primaryFocus />
+        <OverflowMenuItem itemText={'Item 2'} />
       </SplitButton>
     );
 

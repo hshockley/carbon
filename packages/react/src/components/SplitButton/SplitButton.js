@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import cx from 'classnames';
 import { settings } from '@rocketsoftware/carbon-components';
 import Button from '../Button';
-import OverflowMenu  from '../OverflowMenu';
+import OverflowMenu from '../OverflowMenu';
 import { ChevronDown16 } from '@rocketsoftware/icons-react';
 
 const { prefix } = settings;
@@ -12,7 +12,6 @@ const SplitButton = ({
   classNameButton,
   classNameOverflow,
   disabled,
-  href,
   tabIndex,
   type,
   role,
@@ -21,24 +20,24 @@ const SplitButton = ({
   ...other
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const buttonRef = useRef(null)
+  const buttonRef = useRef(null);
 
-  const getOffset = () => { 
-    const top = buttonRef.current.getBoundingClientRect();
+  const getOffset = () => {
+    const { top } = buttonRef.current.getBoundingClientRect();
 
     return {
-      top: top,
-      left: 'auto'
-    }
+      top: top * -1,
+      left: 'auto',
+    };
   };
 
   const childrenArray = React.Children.toArray(children);
   const primaryAction = childrenArray.splice(0, 1)[0].props;
-  
-  const primaryButtonProps = ({
+
+  const primaryButtonProps = {
     onClick: primaryAction.onClick,
     text: primaryAction.itemText,
-  });
+  };
 
   const forOnOpen = () => {
     setIsOpen(true);
@@ -46,7 +45,7 @@ const SplitButton = ({
 
   const forOnClose = () => {
     setIsOpen(false);
-  }
+  };
 
   const containerClasses = cx({
     [classNameContainer]: true,
@@ -63,25 +62,24 @@ const SplitButton = ({
     [`${prefix}--btn--split--overflow__open`]: isOpen,
     [`${prefix}--btn--split--overflow--icon`]: true,
   });
-  
+
   return (
     <div
       className={containerClasses}
       tabIndex={tabIndex}
       ref={buttonRef}
-      data-floating-menu-container
-      {...other}>
-      <Button 
-      type={type} 
-      role={role} 
-      disabled={disabled}
-      className={classNameButton}
-      {...primaryButtonProps}>
+      {...other}
+      data-floating-menu-container>
+      <Button
+        type={type}
+        role={role}
+        disabled={disabled}
+        className={classNameButton}
+        {...primaryButtonProps}>
         {primaryButtonProps.text}
       </Button>
       <OverflowMenu
         className={overflowClasses}
-        flipped={true} 
         disabled={disabled}
         onOpen={forOnOpen}
         onClose={forOnClose}
@@ -91,19 +89,19 @@ const SplitButton = ({
         menuOffset={getOffset}
         getViewport={getViewport}>
         {childrenArray.map(child => {
-          return child
+          return child;
         })}
       </OverflowMenu>
     </div>
   );
 };
 
-SplitButton.PropTypes = {
+SplitButton.propTypes = {
   /**
    * Container classes
    */
   classNameContainer: PropTypes.string,
-  
+
   /**
    * Add an optional class to the button
    */
@@ -140,9 +138,9 @@ SplitButton.PropTypes = {
   role: PropTypes.string,
 
   /**
-     * Optional callback used to obtain a custom 'viewport' that differs from the window.
-     */
-    getViewport: PropTypes.func,
+   * Optional callback used to obtain a custom 'viewport' that differs from the window.
+   */
+  getViewport: PropTypes.func,
 };
 SplitButton.defaultProps = {
   tabIndex: 0,
