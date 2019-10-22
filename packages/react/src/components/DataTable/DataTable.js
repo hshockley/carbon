@@ -455,10 +455,7 @@ export default class DataTable extends React.Component {
       }, 0);
       var isSelected = this.getSelectedRows().length !== selectableRows;
       if (typeof this.state.filterInputValue === 'string') {
-        isSelected = !(
-          Object.values(rowsById).filter(row => row.isSelected == true).length >
-          0
-        );
+        isSelected = !rowsById[filteredRowIds[0]].isSelected;
       }
       return {
         shouldShowBatchActions: isSelected,
