@@ -10,6 +10,9 @@
 @import '../../globals/scss/css--font-face';
 @import 'mixins';
 
+@import '../button/button';
+@import '../overflow-menu/overflow-menu';
+
 .#{$prefix}--btn--split--container {
   display: flex;
   .#{$prefix}--btn--split--overflow {
@@ -48,7 +51,7 @@
       svg {
         fill: $ui-04;
       }
-  }
+    }
 
     &:hover {
       background-color: $hover-primary;
@@ -76,7 +79,16 @@
   .#{$prefix}--btn--split--overflow__open {
     transform: rotate(180deg);
   }
+}
 
+.#{$prefix}--btn--split--overflow--field {
+  height: 40px;
+  min-height: 40px;
+}
+
+.#{$prefix}--btn--split--overflow--sm {
+  min-height: rem(32px);
+  height: rem(32px);
 }
 
 .#{$prefix}--overflow-menu-options--container {
