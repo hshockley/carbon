@@ -48,22 +48,20 @@ const SplitButton = ({
     setIsOpen(false);
   };
 
-  const containerClasses = cx({
-    [classNameContainer]: true,
-    [`${prefix}--btn--split--container`]: true,
-  });
+  const containerClasses = cx(
+    classNameContainer,
+    `${prefix}--btn--split--container`
+  );
 
-  const overflowClasses = cx({
-    [classNameOverflow]: true,
-    [`${prefix}--btn--split--overflow`]: true,
-    [`${prefix}--btn--split--overflow--disabled`]: disabled,
+  const overflowClasses = cx(classNameOverflow, {
     [`${prefix}--btn--split--overflow--field`]: size === 'field',
     [`${prefix}--btn--split--overflow--sm`]: size === 'small',
+    [`${prefix}--btn--split--overflow`]: true,
+    [`${prefix}--btn--split--overflow--disabled`]: disabled,
   });
 
-  const overflowIconClasses = cx({
+  const overflowIconClasses = cx(`${prefix}--btn--split--overflow--icon`, {
     [`${prefix}--btn--split--overflow__open`]: isOpen,
-    [`${prefix}--btn--split--overflow--icon`]: true,
   });
 
   return (
