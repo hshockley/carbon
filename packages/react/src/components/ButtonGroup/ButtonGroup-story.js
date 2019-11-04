@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, select, text } from '@storybook/addon-knobs';
+import { withKnobs, select, text, boolean } from '@storybook/addon-knobs';
 import ButtonGroup from '../ButtonGroup';
 import OverflowMenuItem from '../OverflowMenuItem';
 
@@ -20,9 +20,10 @@ const sizes = {
 const props = {
   regular: () => {
     return {
-      menuText: text('Menu Text', 'Menu Text'),
+      buttonLabel: text('Button Label', 'Button Label'),
       size: select('Button size (size)', sizes, 'default'),
       kind: select('Button kind (kind)', kinds, 'primary'),
+      disabled: boolean('Disabled (disabled)', false),
     };
   },
 };

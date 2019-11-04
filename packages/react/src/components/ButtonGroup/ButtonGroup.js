@@ -10,7 +10,7 @@ import { settings } from '@rocketsoftware/carbon-components';
 
 const { prefix } = settings;
 
-const ButtonGroup = ({ children, menuText, disabled, size, kind }) => {
+const ButtonGroup = ({ children, buttonLabel, disabled, size, kind }) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef(null);
 
@@ -48,7 +48,7 @@ const ButtonGroup = ({ children, menuText, disabled, size, kind }) => {
             kind={kind}
             size={size}
             disabled={disabled}>
-            {menuText}
+            {buttonLabel}
           </Button>
         ))}
         onOpen={forOnOpen}
@@ -64,9 +64,9 @@ const ButtonGroup = ({ children, menuText, disabled, size, kind }) => {
 
 ButtonGroup.propTypes = {
   /**
-   * Specify menu text
+   * Specify button label
    */
-  menuText: PropTypes.string,
+  buttonLabel: PropTypes.string,
 
   /**
    * Specify button size
