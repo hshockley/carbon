@@ -80,7 +80,6 @@
   .#{$prefix}--btn--split--overflow__open {
     transform: rotate(180deg);
   }
-
   .#{$prefix}--btn--split--overflow--field {
     height: 40px;
     min-height: 40px;
@@ -90,6 +89,7 @@
     min-height: rem(32px);
     height: rem(32px);
   }
+
 }
 
 .#{$prefix}--overflow-menu-options--container {
