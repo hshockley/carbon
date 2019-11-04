@@ -8,7 +8,7 @@ import { mount } from 'enzyme';
 describe('SplitButton', () => {
   describe('renders as expected', () => {
     const wrapper = mount(
-      <ButtonGroup menuText={'Menu Text'}>
+      <ButtonGroup buttonLabel={'Button Label'}>
         <OverflowMenuItem itemText={'Item 1'} primaryFocus />
         <OverflowMenuItem itemText={'Item 2'} />
         <OverflowMenuItem itemText={'Item 2'} />
@@ -16,7 +16,7 @@ describe('SplitButton', () => {
     );
 
     it('displays the correct menu text', () => {
-      expect(wrapper.find(Button).props().children).toEqual('Menu Text');
+      expect(wrapper.find(Button).props().children).toEqual('Button Label');
     });
 
     it('renders all children as expected', () => {
