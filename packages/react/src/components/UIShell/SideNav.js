@@ -39,7 +39,14 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
   const [expandedViaHoverState, setExpandedViaHoverState] = useState(
     defaultExpanded
   );
-  const expanded = controlled ? expandedProp : expandedState;
+  const [expandedViaFocusState, setExpandedViaFocusState] = useState(
+    defaultExpanded
+  );
+  const expanded =
+    expandedProp ||
+    expandedState ||
+    expandedViaHoverState ||
+    expandedViaFocusState;
   const handleToggle = (event, value = !expanded) => {
     if (!controlled) {
       setExpandedState(value);
@@ -49,6 +56,18 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
     }
     if (controlled || isRail) {
       setExpandedViaHoverState(value);
+    }
+  };
+
+  const handleFocus = (event, value = !expanded) => {
+    if (!controlled) {
+      setExpandedState(value);
+    }
+    if (onToggle) {
+      onToggle(event, value);
+    }
+    if (controlled || isRail) {
+      setExpandedViaFocusState(value);
     }
   };
 
@@ -64,7 +83,7 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
 
   const className = cx({
     [`${prefix}--side-nav`]: true,
-    [`${prefix}--side-nav--expanded`]: expanded || expandedViaHoverState,
+    [`${prefix}--side-nav--expanded`]: expanded,
     [`${prefix}--side-nav--collapsed`]: !expanded && isFixedNav,
     [`${prefix}--side-nav--rail`]: isRail,
     [customClassName]: !!customClassName,
@@ -83,9 +102,7 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
   if (isRail) {
     childrenToRender = React.Children.map(children, child => {
       // if we are controlled, check for if we have hovered over or the expanded state, else just use the expanded state (uncontrolled)
-      let currentExpansionState = controlled
-        ? expandedViaHoverState || expanded
-        : expanded;
+      let currentExpansionState = expanded;
       return React.cloneElement(child, {
         isSideNavExpanded: currentExpansionState,
       });
@@ -95,8 +112,8 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
   let eventHandlers = {};
 
   if (addFocusListeners) {
-    eventHandlers.onFocus = event => handleToggle(event, true);
-    eventHandlers.onBlur = event => handleToggle(event, false);
+    eventHandlers.onFocus = event => handleFocus(event, true);
+    eventHandlers.onBlur = event => handleFocus(event, false);
   }
 
   if (addMouseListeners) {
