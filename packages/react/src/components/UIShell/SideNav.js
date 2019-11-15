@@ -49,10 +49,14 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
     toggleState;
 
   const handleToggle = (event, value = !toggleState) => {
-    setToggleState(value);
-
+    if (!controlled) {
+      setExpandedState(value);
+    }
     if (onToggle) {
       onToggle(event, value);
+    }
+    if (controlled || isRail) {
+      setToggleState(value);
     }
   };
 
