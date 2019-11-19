@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { settings } from '@rocketsoftware/carbon-components';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -18,6 +18,7 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
   const {
     expanded: expandedProp,
     defaultExpanded,
+    globalExpand,
     isChildOfHeader,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
@@ -33,25 +34,27 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
   } = props;
 
   const { current: controlled } = useRef(expandedProp !== undefined);
-  const [expandedState, setExpandedState] = useState(defaultExpanded);
-  const [expandedViaHoverState, setExpandedViaHoverState] = useState(
-    defaultExpanded
-  );
-  const [expandedViaFocusState, setExpandedViaFocusState] = useState(
-    defaultExpanded
-  );
-  const [toggleState, setToggleState] = useState(defaultExpanded);
+  const [expandedViaHoverState, setExpandedViaHoverState] = useState(false);
+  const [expandedViaFocusState, setExpandedViaFocusState] = useState(false);
+  const [toggleState, setToggleState] = useState(false);
   const expanded =
     expandedProp ||
-    expandedState ||
     expandedViaHoverState ||
     expandedViaFocusState ||
     toggleState;
 
-  const handleToggle = (event, value = !toggleState) => {
-    if (!controlled) {
-      setExpandedState(value);
+  useEffect(() => {
+    if (
+      globalExpand !== undefined &&
+      expandedProp !== undefined &&
+      defaultExpanded == true
+    ) {
+      globalExpand();
+    } else {
+      setToggleState(defaultExpanded);
     }
+  }, [defaultExpanded]);
+  const handleToggle = (event, value = !toggleState) => {
     if (onToggle) {
       onToggle(event, value);
     }
@@ -60,19 +63,13 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
     }
   };
 
-  const handleHover = (value = !expanded) => {
-    if (!controlled) {
-      setExpandedState(value);
-    }
+  const handleHover = value => {
     if (controlled || isRail) {
       setExpandedViaHoverState(value);
     }
   };
 
-  const handleFocus = (value = !expanded) => {
-    if (!controlled) {
-      setExpandedState(value);
-    }
+  const handleFocus = value => {
     if (controlled || isRail) {
       setExpandedViaFocusState(value);
     }
@@ -83,7 +80,6 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
     'aria-labelledby': ariaLabelledBy,
   };
 
-  // TO-DO: comment back in when footer is added for rails
   const assistiveText = expanded
     ? t('carbon.sidenav.state.open')
     : t('carbon.sidenav.state.closed');
@@ -137,7 +133,7 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
         {...accessibilityLabel}
         {...eventHandlers}>
         {childrenToRender}
-        {isFixedNav ? null : (
+        {isFixedNav || expandedProp !== undefined ? null : (
           <SideNavFooter
             assistiveText={assistiveText}
             expanded={toggleState}
@@ -176,6 +172,11 @@ SideNav.propTypes = {
    * If `true`, the SideNav will be open on initial render.
    */
   defaultExpanded: PropTypes.bool,
+
+  /**
+   * Provide the callback function from HeaderContainer
+   */
+  globalExpand: PropTypes.func,
 
   /**
    * An optional listener that is called when an event that would cause
