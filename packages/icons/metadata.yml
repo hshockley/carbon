@@ -407,6 +407,9 @@ icons:
     categories:
       - name: Actions
         subcategory: Navigation
+    aliases:
+      - open
+      - expand
     sizes:
       - 16
       - 32
