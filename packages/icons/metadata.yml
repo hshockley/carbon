@@ -388,32 +388,6 @@ icons:
         categories:
           - name: Organization
             subcategory: Status
-  - name: chevron--double--up
-    friendly_name: Chevron double
-    usage: This is a description for usage
-    categories:
-      - name: Actions
-        subcategory: Navigation
-    aliases:
-      - close
-      - collapse
-    sizes:
-      - 16
-      - 32
-      - glyph
-  - name: chevron--double--down
-    friendly_name: Chevron double down
-    usage: This is a description for usage
-    categories:
-      - name: Actions
-        subcategory: Navigation
-    aliases:
-      - open
-      - expand
-    sizes:
-      - 16
-      - 32
-      - glyph
   - name: chevron
     friendly_name: Chevron
     usage: This is a description for usage
@@ -500,6 +474,32 @@ icons:
         categories:
           - name: Actions
             subcategory: Navigation
+      - name: chevron--double--up
+        friendly_name: Chevron double
+        usage: This is a description for usage
+       categories:
+          - name: Actions
+            subcategory: Navigation
+        aliases:
+          - close
+          - collapse
+        sizes:
+          - 16
+          - 32
+          - glyph
+      - name: chevron--double--down
+        friendly_name: Chevron double down
+        usage: This is a description for usage
+        categories:
+          - name: Actions
+            subcategory: Navigation
+        aliases:
+          - open
+          - expand
+        sizes:
+          - 16
+          - 32
+          - glyph
   - name: close
     friendly_name: Close
     usage: This is a description for usage
