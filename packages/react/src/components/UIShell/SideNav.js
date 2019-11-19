@@ -43,17 +43,18 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
     expandedViaFocusState ||
     toggleState;
 
+  const propExpanded = props.expanded;
   useEffect(() => {
     if (
       globalExpand !== undefined &&
-      expandedProp !== undefined &&
+      propExpanded !== undefined &&
       defaultExpanded == true
     ) {
       globalExpand();
     } else {
       setToggleState(defaultExpanded);
     }
-  }, [defaultExpanded]);
+  }, [defaultExpanded, globalExpand, propExpanded]);
   const handleToggle = (event, value = !toggleState) => {
     if (onToggle) {
       onToggle(event, value);
