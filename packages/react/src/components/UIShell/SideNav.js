@@ -44,6 +44,7 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
     if (globalExpand == undefined && !controlled && defaultExpanded == true) {
       return true;
     }
+    return false;
   });
   const expanded =
     expandedProp ||
@@ -84,7 +85,8 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
   const className = cx({
     [`${prefix}--side-nav`]: true,
     [`${prefix}--side-nav--expanded`]: expanded,
-    [`${prefix}--side-nav--collapsed`]: !expanded && isFixedNav,
+    [`${prefix}--side-nav--collapsed`]:
+      (!expanded && isFixedNav) || (controlled && !expanded && !isRail),
     [`${prefix}--side-nav--rail`]: isRail,
     [customClassName]: !!customClassName,
     [`${prefix}--side-nav--ux`]: isChildOfHeader,
@@ -130,7 +132,7 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
         {...accessibilityLabel}
         {...eventHandlers}>
         {childrenToRender}
-        {isFixedNav || expandedProp !== undefined ? null : (
+        {expandedProp !== undefined || isFixedNav ? null : (
           <SideNavFooter
             assistiveText={assistiveText}
             expanded={toggleState}
@@ -173,24 +175,7 @@ SideNav.propTypes = {
   /**
    * Provide the callback function from HeaderContainer
    */
-  globalExpand: function(props, propName, componentName) {
-    if (
-      props['expanded'] !== undefined &&
-      props[propName] == undefined &&
-      typeof props[propName] !== 'function' &&
-      props['defaultExpanded'] !== undefined &&
-      props['defaultExpanded'] !== true
-    ) {
-      return new Error(
-        'Invalid prop `' +
-          propName +
-          '` supplied to' +
-          ' `' +
-          componentName +
-          '`. Validation failed. Please specify a function.'
-      );
-    }
-  },
+  globalExpand: PropTypes.func,
 
   /**
    * An optional listener that is called when an event that would cause

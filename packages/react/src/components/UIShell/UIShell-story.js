@@ -154,9 +154,9 @@ storiesOf('UI Shell', module)
         render={({ isSideNavExpanded, onClickSideNavExpand }) => (
           <>
             <Header aria-label="IBM Platform Name">
-              <SkipToContent />
               <HeaderMenuButton
                 aria-label="Open menu"
+                isCollapsible
                 onClick={onClickSideNavExpand}
                 isActive={isSideNavExpanded}
               />
@@ -175,8 +175,7 @@ storiesOf('UI Shell', module)
               </HeaderNavigation>
               <SideNav
                 aria-label="Side navigation"
-                expanded={isSideNavExpanded}
-                isPersistent={false}>
+                expanded={isSideNavExpanded}>
                 <SideNavItems>
                   <HeaderSideNavItems>
                     <HeaderMenuItem href="#">Link 1</HeaderMenuItem>
@@ -234,6 +233,7 @@ storiesOf('UI Shell', module)
               <HeaderMenuButton
                 aria-label="Open menu"
                 onClick={onClickSideNavExpand}
+                isCollapsible
                 isActive={isSideNavExpanded}
               />
               <HeaderName href="#" prefix="IBM">
@@ -268,8 +268,7 @@ storiesOf('UI Shell', module)
               </HeaderGlobalBar>
               <SideNav
                 aria-label="Side navigation"
-                expanded={isSideNavExpanded}
-                isPersistent={false}>
+                expanded={isSideNavExpanded}>
                 <SideNavItems>
                   <HeaderSideNavItems>
                     <HeaderMenuItem href="#">Link 1</HeaderMenuItem>
@@ -299,6 +298,7 @@ storiesOf('UI Shell', module)
               <SkipToContent />
               <HeaderMenuButton
                 aria-label="Open menu"
+                isCollapsible
                 onClick={onClickSideNavExpand}
                 isActive={isSideNavExpanded}
               />
@@ -409,6 +409,7 @@ storiesOf('UI Shell', module)
               <SkipToContent />
               <HeaderMenuButton
                 aria-label="Open menu"
+                isCollapsible
                 onClick={onClickSideNavExpand}
                 isActive={isSideNavExpanded}
               />
@@ -889,7 +890,7 @@ storiesOf('UI Shell', module)
                 aria-label="Side navigation"
                 isRail
                 expanded={isSideNavExpanded}
-                // globalExpand={onClickSideNavExpand}
+                globalExpand={onClickSideNavExpand}
                 defaultExpanded={true}>
                 <SideNavItems>
                   <SideNavMenu renderIcon={Fade16} title="Category title">
