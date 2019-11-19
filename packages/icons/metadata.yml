@@ -477,7 +477,7 @@ icons:
       - name: chevron--double--up
         friendly_name: Chevron double
         usage: This is a description for usage
-       categories:
+        categories:
           - name: Actions
             subcategory: Navigation
         aliases:
