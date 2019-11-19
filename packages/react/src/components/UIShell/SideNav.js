@@ -40,7 +40,8 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
     if (globalExpand !== undefined && controlled && defaultExpanded == true) {
       globalExpand();
       return false;
-    } else {
+    }
+    if (globalExpand == undefined && !controlled && defaultExpanded == true) {
       return true;
     }
   });
@@ -172,7 +173,24 @@ SideNav.propTypes = {
   /**
    * Provide the callback function from HeaderContainer
    */
-  globalExpand: PropTypes.func,
+  globalExpand: function(props, propName, componentName) {
+    if (
+      props['expanded'] !== undefined &&
+      props[propName] == undefined &&
+      typeof props[propName] !== 'function' &&
+      props['defaultExpanded'] !== undefined &&
+      props['defaultExpanded'] !== true
+    ) {
+      return new Error(
+        'Invalid prop `' +
+          propName +
+          '` supplied to' +
+          ' `' +
+          componentName +
+          '`. Validation failed. Please specify a function.'
+      );
+    }
+  },
 
   /**
    * An optional listener that is called when an event that would cause
