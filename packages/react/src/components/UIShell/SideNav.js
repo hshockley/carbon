@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { settings } from '@rocketsoftware/carbon-components';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -36,25 +36,20 @@ const SideNav = React.forwardRef(function SideNav(props, ref) {
   const { current: controlled } = useRef(expandedProp !== undefined);
   const [expandedViaHoverState, setExpandedViaHoverState] = useState(false);
   const [expandedViaFocusState, setExpandedViaFocusState] = useState(false);
-  const [toggleState, setToggleState] = useState(false);
+  const [toggleState, setToggleState] = useState(() => {
+    if (globalExpand !== undefined && controlled && defaultExpanded == true) {
+      globalExpand();
+      return false;
+    } else {
+      return true;
+    }
+  });
   const expanded =
     expandedProp ||
     expandedViaHoverState ||
     expandedViaFocusState ||
     toggleState;
 
-  const propExpanded = props.expanded;
-  useEffect(() => {
-    if (
-      globalExpand !== undefined &&
-      propExpanded !== undefined &&
-      defaultExpanded == true
-    ) {
-      globalExpand();
-    } else {
-      setToggleState(defaultExpanded);
-    }
-  }, [defaultExpanded, globalExpand, propExpanded]);
   const handleToggle = (event, value = !toggleState) => {
     if (onToggle) {
       onToggle(event, value);
