@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
+import CardContentItem from './CardContentItem';
+import CardLinkItem from './CardLinkItem';
 import Icon from '../Icon';
+
 const CardContent = ({
   className,
   children,
@@ -10,6 +13,7 @@ const CardContent = ({
   cardLink,
   cardInfo,
   iconDescription,
+  addMouseListeners,
   ...other
 }) => {
   const cardContentClasses = classNames({
@@ -75,12 +79,14 @@ CardContent.propTypes = {
   cardInfo: PropTypes.array,
   className: PropTypes.string,
   iconDescription: PropTypes.string,
+  addMouseListeners: PropTypes.bool,
 };
 
 CardContent.defaultProps = {
   iconDescription: 'card icon',
   cardIcon: null,
   cardTitle: 'card title',
+  addMouseListeners: true,
 };
 
 export default CardContent;
