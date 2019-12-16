@@ -6,28 +6,20 @@ import { settings } from '@rocketsoftware/carbon-components';
 const { prefix } = settings;
 
 const CardContentItem = ({}) => {
-    
-    
-    
-    let eventHandlers = {};
-    const handleHover = value => {
-    }
-    if (addMouseListeners) {
-      eventHandlers.onMouseEnter = () => handleHover(true);
-      eventHandlers.onMouseLeave = () => handleHover(false);
-    }
+  let eventHandlers = {};
+  const handleHover = value => {};
+  if (addMouseListeners) {
+    eventHandlers.onMouseEnter = () => handleHover(true);
+    eventHandlers.onMouseLeave = () => handleHover(false);
+  }
 
-    return (
-        <h4 key={key} className="bx--about__title--additional-info">
-          {info}
-        </h4>
-    );
-
-
+  return (
+    <h4 key={key} className="bx--about__title--additional-info">
+      {info}
+    </h4>
+  );
 };
 
-CardContentItem.propTypes = {
-
-};
+CardContentItem.propTypes = {};
 
 export default CardContentItem;
