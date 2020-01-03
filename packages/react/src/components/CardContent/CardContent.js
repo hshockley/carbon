@@ -23,17 +23,21 @@ const CardContent = ({
 
   const cardLinkContent = cardLink
     ? cardLink.map((link, key) => (
-        <a key={key} href={link} className="bx--about__title--link">
-          {link}
-        </a>
+        <CardLinkItem
+          key={key}
+          link={link}
+          addMouseListeners={addMouseListeners}
+        />
       ))
     : '';
 
   const cardInfoContent = cardInfo
     ? cardInfo.map((info, key) => (
-        <h4 key={key} className="bx--about__title--additional-info">
-          {info}
-        </h4>
+        <CardContentItem
+          key={key}
+          info={info}
+          addMouseListeners={addMouseListeners}
+        />
       ))
     : '';
 

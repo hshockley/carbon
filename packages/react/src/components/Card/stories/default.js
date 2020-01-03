@@ -20,6 +20,11 @@ export default props => (
       cardTitle="Card Name"
       cardInfo={[
         'Lorem ipsum sit amet, consectetur adipisicing elit, sed do eiusmod tempor',
+      ]}
+      cardLink={[
+        <a href="#" class="bx--link bx--card-footer__link">
+          Link
+        </a>,
       ]}>
       <OverflowMenu {...props}>
         <OverflowMenuItem {...props} itemText="Stop App" />

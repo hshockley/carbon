@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import classNames from 'classnames';
 
 import { settings } from '@rocketsoftware/carbon-components';
 const { prefix } = settings;
 
-const CardContentItem = ({}) => {
+const CardContentItem = ({ info, addMouseListeners, key }) => {
   let eventHandlers = {};
   const handleHover = value => {};
   if (addMouseListeners) {
@@ -14,12 +13,16 @@ const CardContentItem = ({}) => {
   }
 
   return (
-    <h4 key={key} className="bx--about__title--additional-info">
+    <h4 key={key} className={`${prefix}--about__title--additional-info`}>
       {info}
     </h4>
   );
 };
 
-CardContentItem.propTypes = {};
+CardContentItem.propTypes = {
+  info: PropTypes.any,
+  addMouseListeners: PropTypes.bool,
+  key: PropTypes.any,
+};
 
 export default CardContentItem;

@@ -99,6 +99,8 @@
 
   .#{$prefix}--about__title--additional-info {
     font-size: 0.75rem;
+    // @include text-overflow(rem(180px));
+    // overflow-y: hidden;
     line-height: 1;
     font-weight: 400;
     padding: 0;

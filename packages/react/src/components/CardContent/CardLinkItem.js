@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import classNames from 'classnames';
 
 import { settings } from '@rocketsoftware/carbon-components';
 const { prefix } = settings;
 
-const CardLinkItem = ({ child }) => {
+const CardLinkItem = ({ link, addMouseListeners, key }) => {
   const [hoverState, setHoverState] = useState(false);
 
   let eventHandlers = {};
@@ -18,14 +17,16 @@ const CardLinkItem = ({ child }) => {
   }
 
   return (
-    <a key={key} href={link} className="bx--about__title--link">
+    <a key={key} href={link} className={`${prefix}--about__title--link`}>
       {link}
     </a>
   );
 };
 
 CardLinkItem.propTypes = {
-  child: PropTypes.node,
+  link: PropTypes.any,
+  addMouseListeners: PropTypes.bool,
+  key: PropTypes.any,
 };
 
 export default CardLinkItem;
