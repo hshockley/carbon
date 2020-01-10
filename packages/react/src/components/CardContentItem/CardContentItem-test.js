@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import CardContentItem from './CardContentItem';
 import { settings } from '@rocketsoftware/carbon-components';
 
 const { prefix } = settings;
