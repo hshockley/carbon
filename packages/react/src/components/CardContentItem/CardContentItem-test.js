@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import CardContentItem from './CardContentItem';
 import { settings } from '@rocketsoftware/carbon-components';
 
@@ -11,10 +11,12 @@ describe('CardContentItem', () => {
       info: 'testinfo 1',
       maxWidth: '10rem',
     };
-    const wrapper = shallow(<CardContentItem {...props} />);
-
+    const wrapper = mount(<CardContentItem {...props} />);
+    const text = wrapper.find('h4');
     it('renders as expected', () => {
-      expect(wrapper.find(`${prefix}--card-text__overflow`).length).toBe(1);
+      expect(text.hasClass(`${prefix}--about__title--additional-info`)).toEqual(
+        true
+      );
     });
   });
 });

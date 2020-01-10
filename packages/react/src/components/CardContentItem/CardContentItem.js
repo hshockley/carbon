@@ -10,7 +10,7 @@ const CardContentItem = ({ info, cardContentRef, maxWidth }) => {
   const contentRef = useRef(null);
 
   useEffect(() => {
-    if (contentRef.current !== null) {
+    if (cardContentRef !== undefined) {
       setOverflowState(
         contentRef.current.clientWidth > cardContentRef.current.clientWidth
       );
