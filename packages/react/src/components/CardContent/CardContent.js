@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames';
-import CardContentItem from './CardContentItem';
-import CardLinkItem from './CardLinkItem';
 import Icon from '../Icon';
 
 const CardContent = ({
@@ -12,10 +10,12 @@ const CardContent = ({
   cardTitle,
   cardLink,
   cardInfo,
+  cardContentItems,
   iconDescription,
-  addMouseListeners,
   ...other
 }) => {
+  const cardContentRef = useRef(null);
+
   const cardContentClasses = classNames({
     'bx--card__card-overview': true,
     [className]: className,
@@ -23,29 +23,33 @@ const CardContent = ({
 
   const cardLinkContent = cardLink
     ? cardLink.map((link, key) => (
-        <CardLinkItem
-          key={key}
-          link={link}
-          addMouseListeners={addMouseListeners}
-        />
+        <a key={key} href={link} className="bx--about__title--link">
+          {link}
+        </a>
       ))
     : '';
 
   const cardInfoContent = cardInfo
     ? cardInfo.map((info, key) => (
-        <CardContentItem
-          key={key}
-          info={info}
-          addMouseListeners={addMouseListeners}
-        />
+        <h4 key={key} className="bx--about__title--additional-info">
+          {info}
+        </h4>
       ))
     : '';
+
+  const cardItems = cardContentItems
+    ? React.Children.map(cardContentItems, item => {
+        if (React.isValidElement(item)) {
+          return React.cloneElement(item, { cardContentRef });
+        }
+      })
+    : null;
 
   const cardLinkContentArray = Object.keys(cardLinkContent);
   const cardInfoContentArray = Object.keys(cardInfoContent);
 
   return (
-    <div {...other} className={cardContentClasses}>
+    <div {...other} ref={cardContentRef} className={cardContentClasses}>
       {children}
       <div className="bx--card-overview__about">
         {cardIcon !== null ? (
@@ -64,6 +68,7 @@ const CardContent = ({
           </p>
           {cardLinkContentArray.map((info, key) => cardLinkContent[key])}
           {cardInfoContentArray.map((info, key) => cardInfoContent[key])}
+          {cardItems}
         </div>
       </div>
     </div>
@@ -83,14 +88,16 @@ CardContent.propTypes = {
   cardInfo: PropTypes.array,
   className: PropTypes.string,
   iconDescription: PropTypes.string,
-  addMouseListeners: PropTypes.bool,
+  cardContentItems: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 CardContent.defaultProps = {
   iconDescription: 'card icon',
   cardIcon: null,
   cardTitle: 'card title',
-  addMouseListeners: true,
 };
 
 export default CardContent;
