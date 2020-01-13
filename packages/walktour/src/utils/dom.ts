@@ -1,4 +1,4 @@
-import { focusableSelector } from "./constants";
+import { focusableSelector } from './constants';
 
 export interface Coords {
   x: number;
@@ -23,7 +23,10 @@ export function isValidCoords(coords: Coords): boolean {
 export function isValidDims(dims: Dims): boolean {
   if (!dims) {
     return false;
-  } else if ((!dims.height && dims.height !== 0) || (!dims.width && dims.height !== 0)) {
+  } else if (
+    (!dims.height && dims.height !== 0) ||
+    (!dims.width && dims.height !== 0)
+  ) {
     return false;
   } else if (dims.height < 0 || dims.width < 0) {
     return false;
@@ -38,8 +41,8 @@ export function dist(a: Coords, b: Coords): number {
   }
 
   return Math.sqrt(
-    Math.pow((Math.abs(a.x - b.x)), 2) +
-    Math.pow((Math.abs(a.y - b.y)), 2))
+    Math.pow(Math.abs(a.x - b.x), 2) + Math.pow(Math.abs(a.y - b.y), 2)
+  );
 }
 
 export function areaDiff(a: Dims, b: Dims): number {
@@ -47,7 +50,7 @@ export function areaDiff(a: Dims, b: Dims): number {
     return;
   }
 
-  return Math.abs((a.height * a.width) - (b.height * b.width));
+  return Math.abs(a.height * a.width - b.height * b.width);
 }
 
 export function getElementCoords(element: Element): Coords {
@@ -57,8 +60,8 @@ export function getElementCoords(element: Element): Coords {
   const elementData: ClientRect = element.getBoundingClientRect();
   return {
     x: elementData.left,
-    y: elementData.top
-  }
+    y: elementData.top,
+  };
 }
 
 export function getElementDims(element: Element): Dims {
@@ -68,8 +71,8 @@ export function getElementDims(element: Element): Dims {
   const elementData = element.getBoundingClientRect();
   return {
     width: elementData.width,
-    height: elementData.height
-  }
+    height: elementData.height,
+  };
 }
 
 //https://gist.github.com/gre/296291b8ce0d8fe6e1c3ea4f1d1c5c3b
@@ -81,9 +84,8 @@ export function getNearestScrollAncestor(element: Element): Element {
 
   const scroll = (el: Element) =>
     regex.test(
-      style(el, "overflow") +
-      style(el, "overflow-y") +
-      style(el, "overflow-x"));
+      style(el, 'overflow') + style(el, 'overflow-y') + style(el, 'overflow-x')
+    );
 
   if (!element || isDefaultScrollingElement(element)) {
     return getDefaultScrollingElement();
@@ -91,7 +93,7 @@ export function getNearestScrollAncestor(element: Element): Element {
     if (scroll(element)) {
       return element;
     } else {
-      return getNearestScrollAncestor(element.parentElement)
+      return getNearestScrollAncestor(element.parentElement);
     }
   }
 }
@@ -109,7 +111,11 @@ export function getDefaultScrollingElement(): Element {
 }
 
 export function isDefaultScrollingElement(root: Element) {
-  return root.isSameNode(document.body) || root.isSameNode(document.scrollingElement) || root.isSameNode(document.documentElement);
+  return (
+    root.isSameNode(document.body) ||
+    root.isSameNode(document.scrollingElement) ||
+    root.isSameNode(document.documentElement)
+  );
 }
 
 //if we're not putting the portal in a custom container, it needs to be at the body level
@@ -122,27 +128,31 @@ export function getValidPortalRoot(root: Element) {
   }
 }
 
-export function getCombinedData(aCoords: Coords, aDims: Dims, bCoords: Coords, bDims: Dims): { coords: Coords, dims: Dims } {
-
+export function getCombinedData(
+  aCoords: Coords,
+  aDims: Dims,
+  bCoords: Coords,
+  bDims: Dims
+): { coords: Coords; dims: Dims } {
   // generates similar data as getBoundingClientRect but using hypothetical positions
-  const generateBounds = (coords: Coords, dims: Dims): { left: number, right: number, top: number, bottom: number } => {
+  const generateBounds = (
+    coords: Coords,
+    dims: Dims
+  ): { left: number; right: number; top: number; bottom: number } => {
     return {
       left: coords.x,
       right: coords.x + dims.width,
       top: coords.y,
-      bottom: coords.y + dims.height
-    }
-  }
+      bottom: coords.y + dims.height,
+    };
+  };
 
   const mostExtreme = (a: number, b: number, largest: boolean): number => {
-    return (a > b)
-      ? (largest ? a : b)
-      : (largest ? b : a)
-  }
+    return a > b ? (largest ? a : b) : largest ? b : a;
+  };
 
   const aBounds = generateBounds(aCoords, aDims);
   const bBounds = generateBounds(bCoords, bDims);
-
 
   const left: number = mostExtreme(aBounds.left, bBounds.left, false);
   const right: number = mostExtreme(aBounds.right, bBounds.right, true);
@@ -152,13 +162,13 @@ export function getCombinedData(aCoords: Coords, aDims: Dims, bCoords: Coords, b
   return {
     coords: {
       x: left,
-      y: top
+      y: top,
     },
     dims: {
       height: bottom - top,
-      width: right - left
-    }
-  }
+      width: right - left,
+    },
+  };
 }
 
 // determines if a can fit within b
@@ -171,50 +181,72 @@ export function fitsWithin(aDims: Dims, bDims: Dims) {
 }
 
 // determines if a does fit within b at the given coords
-export function isWithinAt(aDims: Dims, bDims: Dims, aCoords?: Coords, bCoords?: Coords) {
+export function isWithinAt(
+  aDims: Dims,
+  bDims: Dims,
+  aCoords?: Coords,
+  bCoords?: Coords
+) {
   if (!isValidDims(aDims) || !isValidDims(bDims)) {
     return false;
   }
 
-  const validCoordsA: Coords = isValidCoords(aCoords) ? aCoords : { x: 0, y: 0 };
-  const validCoordsB: Coords = isValidCoords(bCoords) ? bCoords : { x: 0, y: 0 };
+  const validCoordsA: Coords = isValidCoords(aCoords)
+    ? aCoords
+    : { x: 0, y: 0 };
+  const validCoordsB: Coords = isValidCoords(bCoords)
+    ? bCoords
+    : { x: 0, y: 0 };
   const fitsDims: boolean = fitsWithin(aDims, bDims);
-  const fitsHorizontally: boolean = (validCoordsA.x >= validCoordsB.x) && (validCoordsA.x + aDims.width <= validCoordsB.x + bDims.width);
-  const fitsVertically: boolean = (validCoordsA.y >= validCoordsB.y) && (validCoordsA.y + aDims.height <= validCoordsB.y + bDims.height);
+  const fitsHorizontally: boolean =
+    validCoordsA.x >= validCoordsB.x &&
+    validCoordsA.x + aDims.width <= validCoordsB.x + bDims.width;
+  const fitsVertically: boolean =
+    validCoordsA.y >= validCoordsB.y &&
+    validCoordsA.y + aDims.height <= validCoordsB.y + bDims.height;
 
   return fitsDims && fitsHorizontally && fitsVertically;
 }
 
-export function getFocusableElements(root: Element, includeSelf?: boolean): HTMLElement[] {
-
-  const focusableChildren = root.querySelectorAll(focusableSelector)
+export function getFocusableElements(
+  root: Element,
+  includeSelf?: boolean
+): HTMLElement[] {
+  const focusableChildren = root.querySelectorAll(focusableSelector);
   let array: HTMLElement[] = [];
   if (includeSelf && root.matches(focusableSelector)) {
     array.push(root as HTMLElement);
   }
   if (focusableChildren.length > 0) {
     focusableChildren.forEach(el => array.push(el as HTMLElement));
-  } 
+  }
 
   return array;
 }
 
 // helper function to get first/last focusable elements if possible
-export function getEdgeFocusables(defaultElement: HTMLElement, container?: HTMLElement, includeSelf?: boolean): { start: HTMLElement, end: HTMLElement } {
+export function getEdgeFocusables(
+  defaultElement: HTMLElement,
+  container?: HTMLElement,
+  includeSelf?: boolean
+): { start: HTMLElement; end: HTMLElement } {
   if (container) {
-    const containerFocusables: HTMLElement[] = getFocusableElements(container, includeSelf);
+    const containerFocusables: HTMLElement[] = getFocusableElements(
+      container,
+      includeSelf
+    );
     if (containerFocusables.length > 0) {
       return {
         start: containerFocusables[0],
-        end: containerFocusables[containerFocusables.length - 1]
-      }
+        end: containerFocusables[containerFocusables.length - 1],
+      };
     }
   }
 
   return {
     start: defaultElement,
-    end: defaultElement
-  }
+    end: defaultElement,
+  };
 }
 
 export function isForeignTarget(root: Element, selector: string): boolean {
