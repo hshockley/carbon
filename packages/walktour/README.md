@@ -4,26 +4,19 @@
 
 Guided tour/walkthrough component for react projects.
 
-[npm](https://www.npmjs.com/package/walktour) |
-[GitHub](https://github.com/alfrdmalr/walktour)
-
-[Try the demo!](https://alfrdmalr.github.io/walktour/demo)
-
-[Options via Storybook](https://alfrdmalr.github.io/walktour)
-
 ### Installation
 
 - `npm i walktour`
 
 or, if you prefer yarn:
 
-- `yarn add walktour`
+- `yarn add @rocketsoftware/walktour`
 
 ### How To Use
 
 Import the Walktour component:
 
-`import { Walktour } from 'walktour'`
+`import { Walktour } from '@rocketsoftware/walktour'`
 
 And then include it somewhere in your render function:
 
@@ -233,15 +226,6 @@ class App extends Component<> {
 ```
 
 ### Development / Demo
-
-Clone the repo with:
-
-`git clone https://github.com/alfrdmalr/walktour.git`
-
-Navigate to the new directory and install the necessary development
-dependencies:
-
-`cd walktour && yarn install`
 
 Launch the development server:
 
