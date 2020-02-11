@@ -39,6 +39,7 @@ exports[`DataTable.TableToolbarMenu should render 1`] = `
       onKeyDown={[Function]}
       onOpen={[Function]}
       open={false}
+      openFocus={true}
       renderIcon={
         Object {
           "$$typeof": Symbol(react.forward_ref),
