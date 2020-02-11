@@ -210,6 +210,13 @@ class OverflowMenu extends Component {
     getViewport: PropTypes.func,
 
     /**
+     * Optionally flag whether primaryFocus should be set to true on the first child in the body.
+     * `true` by default. If set to false `primaryFocus` needs to be added to one of the
+     *  OverflowItems to maintain accesability.
+     */
+    openFocus: PropTypes.bool,
+
+    /**
      * `true` to use the light version. For use on $ui-01 backgrounds only.
      * Don't use this to make OverflowMenu background color same as container background color.
      */
@@ -230,6 +237,7 @@ class OverflowMenu extends Component {
     tabIndex: 0,
     menuOffset: getMenuOffset,
     menuOffsetFlip: getMenuOffset,
+    openFocus: true,
     light: false,
   };
 
@@ -475,6 +483,7 @@ class OverflowMenu extends Component {
       menuOptionsClass,
       getViewport,
       light,
+      openFocus,
       ...other
     } = this.props;
 
@@ -508,6 +517,7 @@ class OverflowMenu extends Component {
       (child, index) =>
         React.cloneElement(child, {
           closeMenu: this.closeMenu,
+          primaryFocus: openFocus === true && index === 0,
           handleOverflowMenuItemFocus: this.handleOverflowMenuItemFocus,
           ref: e => {
             this[`overflowMenuItem${index}`] = e;
