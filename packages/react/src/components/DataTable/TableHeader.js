@@ -52,6 +52,39 @@ const sortDirections = {
   [sortStates.DESC]: 'descending',
 };
 
+function handleOnChange(value, id, event) {
+  console.log('HEADER VALUE: ' + value);
+  console.log('HEADER ID: ' + id);
+  console.log('HEADER EVENT: ' + event);
+}
+const inputProps = {
+  className: 'some-class',
+  onChange: handleOnChange,
+};
+
+export const FilterOption = React.forwardRef(({ children }, ref) => (
+  <li ref={ref} className={`${prefix}--toolbar-menu__option`}>
+    {children}
+  </li>
+));
+
+export const FilterItem = React.forwardRef(({ children }, ref) => (
+  <li
+    ref={ref}
+    className={
+      (`${prefix}--toolbar-menu__option`,
+      `${prefix}--table-inline-filter__options`)
+    }>
+    {children}
+  </li>
+));
+
+export const FilterTitle = React.forwardRef(({ title }, ref) => (
+  <li ref={ref} className={`${prefix}--toolbar-menu__title`}>
+    {title}
+  </li>
+));
+
 const TableHeader = React.forwardRef(function TableHeader(
   {
     className: headerClassName,
@@ -63,43 +96,13 @@ const TableHeader = React.forwardRef(function TableHeader(
     scope,
     sortDirection,
     translateWithId: t,
+    headers,
+    header,
+    rows,
     ...rest
   },
   ref
 ) {
-
-  function handleOnChange(value, id, event) {
-    console.log('HEADER VALUE: ' + value);
-    console.log('HEADER ID: ' + id);
-    console.log('HEADER EVENT: ' + event);
-}
-const inputProps = {
-  className: 'some-class',
-  onChange: handleOnChange
-};
-  
-  export const FilterOption = React.forwardRef(({ children }, ref) => (
-    <li ref={ref} className={`${prefix}--toolbar-menu__option`}>
-      {children}
-    </li>
-  ));
-  
-  export const FilterItem = React.forwardRef(({ children }, ref) => (
-    <li
-      ref={ref}
-      className={
-        (`${prefix}--toolbar-menu__option`,
-        `${prefix}--table-inline-filter__options`)
-      }>
-      {children}
-    </li>
-  ));
-  
-  export const FilterTitle = React.forwardRef(({ title }, ref) => (
-    <li ref={ref} className={`${prefix}--toolbar-menu__title`}>
-      {title}
-    </li>
-  ));
   if (!isSortable && !inlineFiltering) {
     return (
       <th {...rest} className={headerClassName} scope={scope}>
@@ -128,12 +131,12 @@ const inputProps = {
               key: header.key,
             }).map(cell => (
               <FilterOption key={cell.value}>
-              <Checkbox
-                {...inputProps}
-                id={cell.value}
-                labelText={cell.value}
-              />
-            </FilterOption>
+                <Checkbox
+                  {...inputProps}
+                  id={cell.value}
+                  labelText={cell.value}
+                />
+              </FilterOption>
             ))}
             <FilterItem>
               <Button
@@ -189,18 +192,17 @@ const inputProps = {
           })}
         />
       </button>
-      { inlineFiltering ? 
-      <OverflowMenu
+      {inlineFiltering ? (
+        <OverflowMenu
           renderIcon={Filter}
-          className={"placeholder"}
-          title={"Filter"}
+          className={'placeholder'}
+          title={'Filter'}
           {...rest}>
-            <div>This</div>
-            <div>Is</div>
-            <div>A Test</div>
-            
-      </OverflowMenu> : null
-      }
+          <div>This</div>
+          <div>Is</div>
+          <div>A Test</div>
+        </OverflowMenu>
+      ) : null}
     </th>
   );
 });
