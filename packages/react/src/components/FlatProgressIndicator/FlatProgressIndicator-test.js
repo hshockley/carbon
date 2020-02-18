@@ -89,7 +89,7 @@ describe('FlatProgressIndicator', () => {
       expect(mockOnChange).toHaveBeenCalledWith(0);
     });
 
-    describe('ProgressStep', () => {
+    describe('FlatProgressStep', () => {
       it('should render with correct base className', () => {
         expect(
           mountedList
@@ -121,14 +121,14 @@ describe('FlatProgressIndicator', () => {
       it('should render description in <title> node', () => {
         expect(
           mountedList
-            .find('ProgressStep title')
+            .find('FlatProgressStep title')
             .at(0)
             .text()
         ).toEqual('Step 1: Getting Started with Node.js');
       });
 
       describe('current', () => {
-        it('should render a current ProgressStep with correct className', () => {
+        it('should render a current FlatProgressStep with correct className', () => {
           expect(
             mountedList
               .find(FlatProgressStep)
@@ -138,7 +138,7 @@ describe('FlatProgressIndicator', () => {
           ).toEqual(true);
         });
 
-        it('should render a current ProgressStep with correct props', () => {
+        it('should render a current FlatProgressStep with correct props', () => {
           expect(
             mountedList
               .find(FlatProgressStep)
@@ -149,7 +149,7 @@ describe('FlatProgressIndicator', () => {
       });
 
       describe('complete', () => {
-        it('should render any completed ProgressSteps with correct className', () => {
+        it('should render any completed FlatProgressSteps with correct className', () => {
           expect(
             mountedList
               .find(FlatProgressStep)
@@ -158,7 +158,7 @@ describe('FlatProgressIndicator', () => {
               .hasClass(`${prefix}--flat-progress-step--complete`)
           ).toEqual(true);
         });
-        it('should render any completed ProgressSteps with correct props', () => {
+        it('should render any completed FlatProgressSteps with correct props', () => {
           expect(
             list
               .find(FlatProgressStep)
@@ -169,7 +169,7 @@ describe('FlatProgressIndicator', () => {
       });
 
       describe('incomplete', () => {
-        it('should render any incompleted ProgressSteps with correct className', () => {
+        it('should render any incompleted FlatProgressSteps with correct className', () => {
           expect(
             mountedList
               .find(FlatProgressStep)
@@ -178,7 +178,7 @@ describe('FlatProgressIndicator', () => {
               .hasClass(`${prefix}--flat-progress-step--incomplete`)
           ).toEqual(true);
         });
-        it('should render any incompleted ProgressSteps with correct props', () => {
+        it('should render any incompleted FlatProgressSteps with correct props', () => {
           expect(
             list
               .find(FlatProgressStep)
@@ -187,7 +187,7 @@ describe('FlatProgressIndicator', () => {
           ).toBe(false);
         });
 
-        it('should render any clickable ProgressSteps with correct classname', () => {
+        it('should render any clickable FlatProgressSteps with correct classname', () => {
           mountedList.setProps({ onChange: jest.fn() });
           expect(
             mountedList.find(`.${prefix}--flat-progress-step-button`)
@@ -203,7 +203,7 @@ describe('FlatProgressIndicator', () => {
   });
 });
 
-describe('ProgressIndicatorSkeleton', () => {
+describe('FlatProgressIndicatorSkeleton', () => {
   describe('Renders as expected', () => {
     const wrapper = shallow(<FlatProgressIndicatorSkeleton />);
 
