@@ -172,3 +172,6 @@ export DatePickerSkeleton from './components/DatePicker/DatePicker.Skeleton';
 export Tour from './components/Tour';
 export TourTooltip from './components/TourTooltip';
 export * from './components/UIShell';
+export SplitButton from './components/SplitButton';
+export ButtonGroup from './components/ButtonGroup';
+export FlatProgressIndicator from './components/FlatProgressIndicator';

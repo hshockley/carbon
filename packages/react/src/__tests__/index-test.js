@@ -195,6 +195,9 @@ describe('Carbon Components React', () => {
         "Tour",
         "TourTooltip",
         "UnorderedList",
+        "SplitButton",
+        "ButtonGroup",
+        "FlatProgressIndicator",
       ]
     `);
   });
