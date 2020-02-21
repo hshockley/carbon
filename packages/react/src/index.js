@@ -174,4 +174,8 @@ export TourTooltip from './components/TourTooltip';
 export * from './components/UIShell';
 export SplitButton from './components/SplitButton';
 export ButtonGroup from './components/ButtonGroup';
-export FlatProgressIndicator from './components/FlatProgressIndicator';
+export {
+  FlatProgressIndicator,
+  FlatProgressStep,
+} from './components/FlatProgressIndicator';
+export FlatProgressIndicatorSkeleton from './components/FlatProgressIndicator/FlatProgressIndicator.Skeleton';

@@ -198,6 +198,8 @@ describe('Carbon Components React', () => {
         "SplitButton",
         "ButtonGroup",
         "FlatProgressIndicator",
+        "FlatProgressStep",
+        "FlatProgressIndicatorSkeleton",
       ]
     `);
   });
