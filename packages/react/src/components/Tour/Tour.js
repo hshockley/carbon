@@ -16,7 +16,7 @@ export default class Tour extends React.Component {
       flippedTitle,
       flippedDescription,
       enableFlip,
-      flipBeforeClose,
+      flipBeforeClose: flipBeforeCloseProp,
     } = this.props;
     return (
       <Walktour
@@ -38,6 +38,7 @@ export default class Tour extends React.Component {
             hideClose,
             nextLabel,
             prevLabel,
+            flipBeforeClose,
           } = logic.stepContent;
           return (
             <TourTooltip
@@ -48,7 +49,7 @@ export default class Tour extends React.Component {
               })}
               flippedTitle={flippedTitle}
               flippedDescription={flippedDescription}
-              flipBeforeClose={flipBeforeClose}
+              flipBeforeClose={flipBeforeClose || flipBeforeCloseProp}
               {...this.props}
               onNext={logic.next}
               onPrev={logic.prev}
