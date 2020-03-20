@@ -86,14 +86,13 @@ const steps = {
     {
       selector: '#one',
       title: 'Welcome To The Tour',
-      description: 'Use this component to point out new or important features.',
-      flipBeforeClose: true,
+      description: 'Without flipBeforeClose.',
     },
     {
       selector: '#two',
       movingTarget: true,
       title: 'Interaction',
-      description: 'You can interact with the elements being highlighted.',
+      description: 'With flipBeforeClose.',
       flipBeforeClose: true,
     },
   ],
