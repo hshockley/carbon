@@ -82,6 +82,21 @@ const steps = {
       description: 'You can interact with the elements being highlighted.',
     },
   ],
+  withFlipBeforeClose: () => [
+    {
+      selector: '#one',
+      title: 'Welcome To The Tour',
+      description: 'Use this component to point out new or important features.',
+      flipBeforeClose: true,
+    },
+    {
+      selector: '#two',
+      movingTarget: true,
+      title: 'Interaction',
+      description: 'You can interact with the elements being highlighted.',
+      flipBeforeClose: true,
+    },
+  ],
   scroll: () => [
     {
       selector: '#one',
@@ -148,6 +163,18 @@ storiesOf('Pattern|Tour', module)
       <Tour
         enableFlip
         steps={steps.default()}
+        flippedTitle={'Flipped Title'}
+        flippedDescription={
+          'Secondary description on the back side of the card. Currently, this is the same for all steps'
+        }
+      />
+    </>
+  ))
+  .add('with flip before close', () => (
+    <>
+      {targets}
+      <Tour
+        steps={steps.withFlipBeforeClose()}
         flippedTitle={'Flipped Title'}
         flippedDescription={
           'Secondary description on the back side of the card. Currently, this is the same for all steps'

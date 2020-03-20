@@ -49,8 +49,8 @@ export default class Tour extends React.Component {
               })}
               flippedTitle={flippedTitle}
               flippedDescription={flippedDescription}
-              flipBeforeClose={flipBeforeClose || flipBeforeCloseProp}
               {...this.props}
+              flipBeforeClose={flipBeforeClose || flipBeforeCloseProp}
               onNext={logic.next}
               onPrev={logic.prev}
               onClose={logic.close}
