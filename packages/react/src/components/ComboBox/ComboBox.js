@@ -236,7 +236,6 @@ export default class ComboBox extends React.Component {
 
   handleOnInputValueChange = inputValue => {
     const { onInputChange } = this.props;
-    console.log('HANDLE ON INPUT VALUE CHANGE');
     this.setState({ useFilter: true });
     this.setState(
       () => ({
@@ -260,7 +259,6 @@ export default class ComboBox extends React.Component {
 
   onToggleClick = isOpen => event => {
     if (event.target === this.textInput.current && isOpen) {
-      console.log('IN FIRST IF STATEMENT');
       event.preventDownshiftDefault = true;
       event.persist();
     }
