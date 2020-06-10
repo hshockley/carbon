@@ -262,7 +262,7 @@ export default class ComboBox extends React.Component {
       event.preventDownshiftDefault = true;
       event.persist();
     }
-    if (event.target === this.textInput.current && !isOpen) {
+    if (!isOpen) {
       this.setState({ useFilter: false });
     }
   };
