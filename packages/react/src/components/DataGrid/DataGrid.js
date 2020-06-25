@@ -12,6 +12,8 @@ import React, {
   useCallback,
   createElement
 } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import {
   Table,
@@ -27,40 +29,43 @@ import {
 
 // const { prefix } = settings;
 
-const DataGrid = ({ data, headers }) => {
+const DataGrid = ({ rows, headers }) => {
   return (
-    <TableContainer title="DataTable" description="With default options">
-      <Table>
-        <TableHead>
-          <TableRow>
-            {headers.map(header => (
-              <TableHeader>{header.header}</TableHeader>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map(row => (
+    <DndProvider backend={HTML5Backend}>
+      <TableContainer title="DataTable" description="With default options">
+        <Table>
+          <TableHead>
             <TableRow>
-              {row.cells.map(cell => (
-                <TableCell key={cell.id}>{cell.value}</TableCell>
+              {headers.map(header => (
+                <TableHeader>{header.header}</TableHeader>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <TableRow>
+                {row.cells.map(cell => (
+                  <TableCell key={cell.id}>{cell.value}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </DndProvider>
   );
 };
 
 DataGrid.propTypes = {
-  data: PropTypes.string,
+  rows: PropTypes.string,
   headers: PropTypes.string,
-  settings: PropTypes.shape({
-    withSort: PropTypes.bool,
-    withSearch: PropTypes.bool,
-    withPagination: PropTypes.bool,
-    withRowExpansion: PropTypes.bool,
-  }),
+  height: PropTypes.number,
+  width: PropTypes.number,
+
+  enableSort: PropTypes.bool,
+  enableSearch: PropTypes.bool,
+  enablePagination: PropTypes.bool,
+  enableRowExpansion: PropTypes.bool,
   i18n: PropTypes.shape({
     placeholder: PropTypes.string,
   }),
