@@ -2,20 +2,21 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import { withKnobs } from '@storybook/addon-knobs';
+import { initialRowsLarge, headers } from '../DataTable/stories/shared';
 import DataGrid from './DataGrid';
+import getDerivedStateFromProps from '../DataTable/state/getDerivedStateFromProps';
 
-// const props = {
-//   regular: () => {
-//     return {};
-//   },
-// };
+const props = {
+  rows: initialRowsLarge,
+  columns: headers
+};
 
 storiesOf('Pattern|DataGrid', module)
   .addDecorator(withKnobs)
   .add(
     'Default',
     () => {
-      return <DataGrid />;
+      return <DataGrid {...props}/>;
     },
     {
       info: {
