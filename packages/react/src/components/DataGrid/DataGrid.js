@@ -21,23 +21,35 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableHeader,
   TableRow,
 } from '../DataTable';
+
+import { DraggableHeader } from './DraggableHeader';
 
 // import { Pagination } from '../Pagination';
 
 // const { prefix } = settings;
 
-const DataGrid = ({ rows, headers }) => {
+const DataGrid = ({ rows, columns }) => {
+  
+  useEffect(() => {
+    console.log("ROWS")
+    console.log(rows);
+    console.log("COLUMNS");
+    console.log(columns)
+    console.log("MAPPED")
+    console.log(rows.map(row => row.id))
+    console.log("TYPE")
+    console.log(typeof rows)
+  }, [])
   return (
     <DndProvider backend={HTML5Backend}>
       <TableContainer title="DataTable" description="With default options">
         <Table>
           <TableHead>
             <TableRow>
-              {headers.map(header => (
-                <TableHeader>{header.header}</TableHeader>
+              {columns.map(header => (
+                <DraggableHeader>{header.header}</DraggableHeader>
               ))}
             </TableRow>
           </TableHead>
@@ -57,10 +69,22 @@ const DataGrid = ({ rows, headers }) => {
 };
 
 DataGrid.propTypes = {
-  rows: PropTypes.string,
-  headers: PropTypes.string,
-  height: PropTypes.number,
-  width: PropTypes.number,
+  rows: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      disabled: PropTypes.bool,
+      isSelected: PropTypes.bool,
+      isExpanded: PropTypes.bool,
+    })
+  ).isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      header: PropTypes.node.isRequired,
+    })
+  ).isRequired,
+  height: PropTypes.string,
+  width: PropTypes.string,
 
   enableSort: PropTypes.bool,
   enableSearch: PropTypes.bool,
