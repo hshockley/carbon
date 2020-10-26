@@ -1,7 +1,11 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import cx from 'classnames';
 import { usePopper } from 'react-popper';
 import { createPortal } from 'react-dom';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 function CellAction({ icon, actions, callback, isFirst }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,12 +16,12 @@ function CellAction({ icon, actions, callback, isFirst }) {
     modifiers: [{ name: 'offset', options: { offset: [0, -8] } }],
   });
 
-  const cellActionClasses = cx('rdg-cell-action', {
-    'rdg-cell-action-last': isFirst,
+  const cellActionClasses = cx(`${prefix}--rdg-cell-action`, {
+    [`${prefix}--rdg-cell-action-last`]: isFirst,
   });
 
-  const actionButtonClasses = cx('rdg-cell-action-button', {
-    'rdg-cell-action-button-toggled': isOpen,
+  const actionButtonClasses = cx(`${prefix}--rdg-cell-action-button`, {
+    [`${prefix}--rdg-cell-action-button-toggled`]: isOpen,
   });
 
   function onActionIconClick() {
@@ -32,7 +36,7 @@ function CellAction({ icon, actions, callback, isFirst }) {
 
   return (
     <div className={cellActionClasses} onMouseLeave={() => setIsOpen(false)}>
-      <div
+      <div // eslint-disable-line
         ref={setReference}
         className={actionButtonClasses}
         onClick={onActionIconClick}>
@@ -44,9 +48,10 @@ function CellAction({ icon, actions, callback, isFirst }) {
         createPortal(
           <div
             ref={setPopper}
-            className="rdg-cell-action-menu"
+            className={`${prefix}--rdg-cell-action-menu`}
             style={styles.popper}>
             {actions.map((action, index) => (
+              // eslint-disable-next-line
               <span key={index} onClick={action.callback}>
                 {action.text}
               </span>
@@ -63,5 +68,19 @@ export function CellActionsFormatter({ actions }) {
     return <CellAction key={index} isFirst={index === 0} {...action} />;
   });
 
-  return <>{actionButtons}</>;
+  return <>{actionButtons}</>; // eslint-disable-line
 }
+
+CellAction.propTypes = {
+  icon: PropTypes.any,
+  actions: PropTypes.any,
+  callback: PropTypes.any,
+  isFirst: PropTypes.any,
+};
+
+CellActionsFormatter.propTypes = {
+  icon: PropTypes.any,
+  actions: PropTypes.any,
+  callback: PropTypes.any,
+  isFirst: PropTypes.any,
+};

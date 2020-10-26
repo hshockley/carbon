@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { cloneElement } from 'react';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 export default function ResizableHeaderCell({ children, column, onResize }) {
   function onMouseDown(event) {
@@ -15,7 +19,7 @@ export default function ResizableHeaderCell({ children, column, onResize }) {
       return;
     }
 
-    const onMouseMove = event => {
+    const onMouseMove = (event) => {
       handleResize(event.clientX + offset, currentTarget);
     };
 
@@ -48,14 +52,14 @@ export default function ResizableHeaderCell({ children, column, onResize }) {
       return null;
     }
 
-    const onTouchMove = event => {
+    const onTouchMove = (event) => {
       const touch = getTouch(event);
       if (touch) {
         handleResize(touch.clientX + offset, currentTarget);
       }
     };
 
-    const onTouchEnd = event => {
+    const onTouchEnd = (event) => {
       const touch = getTouch(event);
       if (!touch) return;
       window.removeEventListener('touchmove', onTouchMove);
@@ -79,8 +83,14 @@ export default function ResizableHeaderCell({ children, column, onResize }) {
     children: (
       <>
         {children.props.children}
-        <div className="rdg-header-cell-resizer" />
+        <div className={`${prefix}--rdg-header-cell-resizer`} />
       </>
     ),
   });
 }
+
+ResizableHeaderCell.propTypes = {
+  children: PropTypes.any,
+  column: PropTypes.any,
+  onResize: PropTypes.any,
+};

@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 function DropDownEditor({ column, value, onCommit, options }, ref) {
   const selectRef = useRef(null);
@@ -17,12 +21,12 @@ function DropDownEditor({ column, value, onCommit, options }, ref) {
   return (
     <select
       ref={selectRef}
-      className="rdg-select-editor"
+      className={`${prefix}--rdg-select-editor`}
       defaultValue={value}
       onBlur={onCommit}
       size={options.length}
       style={{ maxHeight: 200, height: 'auto', overflowY: 'auto' }}>
-      {options.map(name =>
+      {options.map((name) =>
         typeof name === 'string' ? (
           <option key={name} value={name} onClick={onCommit}>
             {name}
@@ -40,5 +44,12 @@ function DropDownEditor({ column, value, onCommit, options }, ref) {
     </select>
   );
 }
+
+DropDownEditor.propTypes = {
+  column: PropTypes.any,
+  value: PropTypes.any,
+  onCommit: PropTypes.any,
+  options: PropTypes.any,
+};
 
 export default forwardRef(DropDownEditor);

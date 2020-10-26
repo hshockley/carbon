@@ -1,25 +1,11 @@
+import PropTypes from 'prop-types';
 import React, { useCallback, memo } from 'react';
 
 import HeaderCell from './HeaderCell';
-// import { CalculatedColumn } from './types';
 import { assertIsValidKey } from './utils';
-// import { DataGridProps } from './DataGrid';
+import { settings } from '@rocketsoftware/carbon-components';
 
-// type SharedDataGridProps<R, K extends keyof R, SR> = Pick<DataGridProps<R, K, SR>,
-//   | 'rows'
-//   | 'onSelectedRowsChange'
-//   | 'sortColumn'
-//   | 'sortDirection'
-//   | 'onSort'
-//   | 'rowKey'
-// >;
-
-// export interface HeaderRowProps<R, K extends keyof R, SR> extends SharedDataGridProps<R, K, SR> {
-//   lastFrozenColumnIndex: number;
-//   columns: readonly CalculatedColumn<R, SR>[];
-//   allRowsSelected: boolean;
-//   onColumnResize: (column: CalculatedColumn<R, SR>, width: number) => void;
-// }
+const { prefix } = settings;
 
 function HeaderRow({
   columns,
@@ -34,7 +20,7 @@ function HeaderRow({
   onSort,
 }) {
   const handleAllRowsSelectionChange = useCallback(
-    checked => {
+    (checked) => {
       if (!onSelectedRowsChange) return;
 
       assertIsValidKey(rowKey);
@@ -55,8 +41,8 @@ function HeaderRow({
     <div
       role="row"
       aria-rowindex={1} // aria-rowindex is 1 based
-      className="rdg-header-row">
-      {columns.map(column => {
+      className={`${prefix}--rdg-header-row`}>
+      {columns.map((column) => {
         return (
           <HeaderCell
             key={column.key}
@@ -74,5 +60,18 @@ function HeaderRow({
     </div>
   );
 }
+
+HeaderRow.propTypes = {
+  columns: PropTypes.any,
+  lastFrozenColumnIndex: PropTypes.any,
+  rows: PropTypes.any,
+  rowKey: PropTypes.any,
+  onSelectedRowsChange: PropTypes.any,
+  allRowsSelected: PropTypes.any,
+  onColumnResize: PropTypes.any,
+  sortColumn: PropTypes.any,
+  sortDirection: PropTypes.any,
+  onSort: PropTypes.any,
+};
 
 export default memo(HeaderRow);

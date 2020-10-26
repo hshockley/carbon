@@ -1,10 +1,13 @@
+import PropTypes from 'prop-types';
 import React, { forwardRef, memo, useRef } from 'react';
 import cx from 'classnames';
 
 import { EditorContainer, EditorPortal } from './editors';
-// import { CellRendererProps } from './types';
 import { wrapEvent } from './utils';
 import { useCombinedRefs } from './hooks';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 function Cell(
   {
@@ -33,13 +36,13 @@ function Cell(
 
   const { cellClass } = column;
   className = cx(
-    'rdg-cell',
+    `${prefix}--rdg-cell`,
     {
-      'rdg-cell-frozen': column.frozen,
-      'rdg-cell-frozen-last': column.idx === lastFrozenColumnIndex,
-      'rdg-cell-selected': isSelected,
-      'rdg-cell-copied': isCopied,
-      'rdg-cell-dragged-over': isDraggedOver,
+      [`${prefix}--rdg-cell-frozen`]: column.frozen,
+      [`${prefix}--rdg-cell-frozen-last`]: column.idx === lastFrozenColumnIndex,
+      [`${prefix}--rdg-cell-selected`]: isSelected,
+      [`${prefix}--rdg-cell-copied`]: isCopied,
+      [`${prefix}--rdg-cell-dragged-over`]: isDraggedOver,
     },
     typeof cellClass === 'function' ? cellClass(row) : cellClass,
     className
@@ -103,7 +106,7 @@ function Cell(
         />
         {selectedCellProps?.dragHandleProps && (
           <div
-            className="rdg-cell-drag-handle"
+            className={`${prefix}--rdg-cell-drag-handle`}
             {...selectedCellProps.dragHandleProps}
           />
         )}
@@ -114,6 +117,7 @@ function Cell(
   return (
     <div
       role="gridcell"
+      tabIndex={0}
       aria-colindex={column.idx + 1} // aria-colindex is 1-based
       aria-selected={isSelected}
       ref={useCombinedRefs(cellRef, ref)}
@@ -139,5 +143,23 @@ function Cell(
     </div>
   );
 }
+
+Cell.propTypes = {
+  className: PropTypes.any,
+  column: PropTypes.any,
+  isCopied: PropTypes.any,
+  isDraggedOver: PropTypes.any,
+  isRowSelected: PropTypes.any,
+  lastFrozenColumnIndex: PropTypes.any,
+  row: PropTypes.any,
+  rowIdx: PropTypes.any,
+  eventBus: PropTypes.any,
+  selectedCellProps: PropTypes.any,
+  onRowClick: PropTypes.any,
+  onKeyDown: PropTypes.any,
+  onClick: PropTypes.any,
+  onDoubleClick: PropTypes.any,
+  onContextMenu: PropTypes.any,
+};
 
 export default memo(forwardRef(Cell));

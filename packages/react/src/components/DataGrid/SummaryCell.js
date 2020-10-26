@@ -1,16 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { memo } from 'react';
 import cx from 'classnames';
+import { settings } from '@rocketsoftware/carbon-components';
 
-// import { CellRendererProps } from './types';
-
-// type SharedCellRendererProps<R, SR> = Pick<CellRendererProps<R, SR>,
-//   | 'lastFrozenColumnIndex'
-//   | 'column'
-// >;
-
-// interface SummaryCellProps<R, SR> extends SharedCellRendererProps<R, SR> {
-//   row: SR;
-// }
+const { prefix } = settings;
 
 function SummaryCell({ column, lastFrozenColumnIndex, row }) {
   const {
@@ -20,10 +13,10 @@ function SummaryCell({ column, lastFrozenColumnIndex, row }) {
     summaryCellClass,
   } = column;
   const className = cx(
-    'rdg-cell',
+    `${prefix}--rdg-cell`,
     {
-      'rdg-cell-frozen': column.frozen,
-      'rdg-cell-frozen-last': column.idx === lastFrozenColumnIndex,
+      [`${prefix}--rdg-cell-frozen`]: column.frozen,
+      [`${prefix}--rdg-cell-frozen-last`]: column.idx === lastFrozenColumnIndex,
     },
     typeof summaryCellClass === 'function'
       ? summaryCellClass(row)
@@ -40,5 +33,11 @@ function SummaryCell({ column, lastFrozenColumnIndex, row }) {
     </div>
   );
 }
+
+SummaryCell.propTypes = {
+  column: PropTypes.any,
+  lastFrozenColumnIndex: PropTypes.any,
+  row: PropTypes.any,
+};
 
 export default memo(SummaryCell);

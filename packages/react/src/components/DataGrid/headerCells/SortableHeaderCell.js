@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 const SORT_TEXT = {
   ASC: '\u25B2',
@@ -33,9 +37,18 @@ export default function SortableHeaderCell({
   }
 
   return (
-    <span className="rdg-header-sort-cell" onClick={onClick}>
-      <span className="rdg-header-sort-name">{children}</span>
+    // eslint-disable-next-line
+    <span className={`${prefix}--rdg-header-sort-cell`} onClick={onClick}>
+      <span className={`${prefix}--rdg-header-sort-name`}>{children}</span>
       <span>{SORT_TEXT[sortDirection]}</span>
     </span>
   );
 }
+
+SortableHeaderCell.propTypes = {
+  column: PropTypes.any,
+  onSort: PropTypes.any,
+  sortColumn: PropTypes.any,
+  sortDirection: PropTypes.any,
+  children: PropTypes.any,
+};

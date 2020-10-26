@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 export default function Toolbar(props) {
   function onAddRow() {
@@ -6,7 +10,7 @@ export default function Toolbar(props) {
   }
 
   return (
-    <div className="rdg-toolbar">
+    <div className={`${prefix}--rdg-toolbar`}>
       <div className="tools">
         {props.onAddRow && (
           <button type="button" className="btn" onClick={onAddRow}>
@@ -23,3 +27,12 @@ export default function Toolbar(props) {
     </div>
   );
 }
+Toolbar.propTypes = {
+  onAddRow: PropTypes.any,
+  numberOfRows: PropTypes.any,
+  addRowButtonText: PropTypes.any,
+  enableFilter: PropTypes.any,
+  onToggleFilter: PropTypes.any,
+  filterRowsButtonText: PropTypes.any,
+  children: PropTypes.any,
+};

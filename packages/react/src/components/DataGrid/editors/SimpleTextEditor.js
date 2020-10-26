@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-// import { Editor, EditorProps } from '../types';
+import { settings } from '@rocketsoftware/carbon-components';
 
-// type Props = Pick<EditorProps<string>, 'value' | 'column' | 'onCommit'>;
+const { prefix } = settings;
 
 export default class SimpleTextEditor extends React.Component {
   input = React.createRef();
@@ -19,7 +20,7 @@ export default class SimpleTextEditor extends React.Component {
   render() {
     return (
       <input
-        className="rdg-text-editor"
+        className={`${prefix}--rdg-text-editor`}
         ref={this.input}
         defaultValue={this.props.value}
         onBlur={this.props.onCommit}
@@ -27,3 +28,9 @@ export default class SimpleTextEditor extends React.Component {
     );
   }
 }
+
+SimpleTextEditor.propTypes = {
+  column: PropTypes.any,
+  value: PropTypes.any,
+  onCommit: PropTypes.any,
+};

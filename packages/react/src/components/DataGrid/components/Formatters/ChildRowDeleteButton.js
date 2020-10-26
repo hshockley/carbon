@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 export function ChildRowDeleteButton({
   onDeleteSubRow,
@@ -6,12 +10,12 @@ export function ChildRowDeleteButton({
 }) {
   return (
     <>
-      <div className="rdg-child-row-action-cross" />
+      <div className={`${prefix}--rdg-child-row-action-cross`} />
       {isDeleteSubRowEnabled && (
-        <span
+        <span // eslint-disable-line
           aria-label="delete"
           role="img"
-          className="rdg-child-row-btn"
+          className={`${prefix}--rdg-child-row-btn`}
           onClick={onDeleteSubRow}>
           ❌
         </span>
@@ -19,3 +23,8 @@ export function ChildRowDeleteButton({
     </>
   );
 }
+
+ChildRowDeleteButton.propTypes = {
+  onDeleteSubRow: PropTypes.any,
+  isDeleteSubRowEnabled: PropTypes.any,
+};

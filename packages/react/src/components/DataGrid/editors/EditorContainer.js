@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {
   useRef,
   useState,
@@ -6,19 +7,12 @@ import React, {
   useEffect,
 } from 'react';
 import cx from 'classnames';
-
-// import { CalculatedColumn, Editor, Omit, SharedEditorContainerProps } from '../types';
 import { useClickOutside } from '../hooks';
 import SimpleTextEditor from './SimpleTextEditor';
 import { preventDefault } from '../utils';
+import { settings } from '@rocketsoftware/carbon-components';
 
-// export interface EditorContainerProps<R, SR> extends Omit<SharedEditorContainerProps, 'editorPortalTarget'> {
-//   rowIdx: number;
-//   row: R;
-//   column: CalculatedColumn<R, SR>;
-//   top: number;
-//   left: number;
-// }
+const { prefix } = settings;
 
 export default function EditorContainer({
   rowIdx,
@@ -197,12 +191,12 @@ export default function EditorContainer({
     );
   }
 
-  const className = cx('rdg-editor-container', {
-    'rdg-editor-invalid': !isValid,
+  const className = cx(`${prefix}--rdg-editor-container`, {
+    [`${prefix}--rdg-editor-invalid`]: !isValid,
   });
 
   return (
-    <div
+    <div //eslint-disable-line jsx-a11y/no-static-element-interactions
       className={className}
       style={{ height: rowHeight, width: column.width, left, top }}
       onClickCapture={onClickCapture}
@@ -212,3 +206,17 @@ export default function EditorContainer({
     </div>
   );
 }
+
+EditorContainer.propTypes = {
+  rowIdx: PropTypes.any,
+  column: PropTypes.any,
+  row: PropTypes.any,
+  rowHeight: PropTypes.any,
+  left: PropTypes.any,
+  top: PropTypes.any,
+  onCommit: PropTypes.any,
+  onCommitCancel: PropTypes.any,
+  scrollLeft: PropTypes.any,
+  scrollTop: PropTypes.any,
+  firstEditorKeyPress: PropTypes.any,
+};

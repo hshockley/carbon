@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { SelectCellFormatter } from './formatters';
 
-// TODO: fix type
 export const SelectColumn = {
   key: 'select-row',
   name: '',
@@ -26,4 +26,15 @@ export const SelectColumn = {
       />
     );
   },
+};
+
+SelectColumn.headerRenderer.propTypes = {
+  prefix: PropTypes.any,
+  allRowsSelected: PropTypes.any,
+  onAllRowsSelectionChange: PropTypes.any,
+};
+
+SelectColumn.formatter.propTypes = {
+  isRowSelected: PropTypes.any,
+  onRowSelectionChange: PropTypes.any,
 };

@@ -1,5 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { createElement, memo } from 'react';
 import cx from 'classnames';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 function FilterRow({
   columns,
@@ -15,12 +19,13 @@ function FilterRow({
 
   return (
     <div role="row" aria-rowindex={2} className="rdg-filter-row">
-      {columns.map(column => {
+      {columns.map((column) => {
         const { key } = column;
 
-        const className = cx('rdg-cell', {
-          'rdg-cell-frozen': column.frozen,
-          'rdg-cell-frozen-last': column.idx === lastFrozenColumnIndex,
+        const className = cx(`${prefix}--rdg-cell`, {
+          [`${prefix}--rdg-cell-frozen`]: column.frozen,
+          [`${prefix}--rdg-cell-frozen-last`]:
+            column.idx === lastFrozenColumnIndex,
         });
         const style = {
           width: column.width,
@@ -33,7 +38,7 @@ function FilterRow({
               createElement(column.filterRenderer, {
                 column,
                 value: filters?.[column.key],
-                onChange: value => onChange(key, value),
+                onChange: (value) => onChange(key, value),
               })}
           </div>
         );
@@ -41,5 +46,12 @@ function FilterRow({
     </div>
   );
 }
+
+FilterRow.propTypes = {
+  columns: PropTypes.any,
+  lastFrozenColumnIndex: PropTypes.any,
+  filters: PropTypes.any,
+  onFiltersChange: PropTypes.any,
+};
 
 export default memo(FilterRow);

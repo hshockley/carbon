@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React, { createElement } from 'react';
 import cx from 'classnames';
 
-// import { CalculatedColumn } from './types';
-// import { HeaderRowProps } from './HeaderRow';
 import SortableHeaderCell from './headerCells/SortableHeaderCell';
 import ResizableHeaderCell from './headerCells/ResizableHeaderCell';
-// import { SortDirection } from './enums';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 function getAriaSort(sortDirection) {
   switch (sortDirection) {
@@ -17,20 +18,6 @@ function getAriaSort(sortDirection) {
       return 'none';
   }
 }
-
-// type SharedHeaderRowProps<R, SR> = Pick<HeaderRowProps<R, never, SR>,
-//   | 'sortColumn'
-//   | 'sortDirection'
-//   | 'onSort'
-//   | 'allRowsSelected'
-// >;
-
-// export interface HeaderCellProps<R, SR> extends SharedHeaderRowProps<R, SR> {
-//   column: CalculatedColumn<R, SR>;
-//   lastFrozenColumnIndex: number;
-//   onResize: (column: CalculatedColumn<R, SR>, width: number) => void;
-//   onAllRowsSelectionChange: (checked: boolean) => void;
-// }
 
 export default function HeaderCell({
   column,
@@ -66,9 +53,9 @@ export default function HeaderCell({
     );
   }
 
-  const className = cx('rdg-cell', column.headerCellClass, {
-    'rdg-cell-frozen': column.frozen,
-    'rdg-cell-frozen-last': column.idx === lastFrozenColumnIndex,
+  const className = cx(`${prefix}--rdg-cell`, column.headerCellClass, {
+    [`${prefix}--rdg-cell-frozen`]: column.frozen,
+    [`${prefix}--rdg-cell-frozen-last`]: column.idx === lastFrozenColumnIndex,
   });
   const style = {
     width: column.width,
@@ -98,3 +85,14 @@ export default function HeaderCell({
 
   return cell;
 }
+
+HeaderCell.propTypes = {
+  column: PropTypes.any,
+  lastFrozenColumnIndex: PropTypes.any,
+  onResize: PropTypes.any,
+  allRowsSelected: PropTypes.any,
+  onAllRowsSelectionChange: PropTypes.any,
+  sortColumn: PropTypes.any,
+  sortDirection: PropTypes.any,
+  onSort: PropTypes.any,
+};

@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 function wrapRefs(...refs) {
-  return handle => {
+  return (handle) => {
     for (const ref of refs) {
       if (typeof ref === 'function') {
         ref(handle);
@@ -17,7 +18,7 @@ function wrapRefs(...refs) {
 export function DraggableHeaderRenderer({ onColumnsReorder, ...props }) {
   const [{ isDragging }, drag] = useDrag({
     item: { key: props.column.key, type: 'COLUMN_DRAG' },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   });
@@ -29,7 +30,7 @@ export function DraggableHeaderRenderer({ onColumnsReorder, ...props }) {
         onColumnsReorder(key, props.column.key);
       }
     },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
     }),
@@ -47,3 +48,8 @@ export function DraggableHeaderRenderer({ onColumnsReorder, ...props }) {
     </div>
   );
 }
+
+DraggableHeaderRenderer.propTypes = {
+  onColumnsReorder: PropTypes.any,
+  column: PropTypes.any,
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {
   forwardRef,
   useState,
@@ -30,6 +31,9 @@ import {
 } from './utils';
 
 import { CellNavigationMode, UpdateActions } from './enums';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 /**
  * Main API Component to render a data grid of rows and columns
@@ -102,7 +106,7 @@ function DataGrid(
   const [isDragging, setDragging] = useState(false);
   const [draggedOverRowIdx, setOverRowIdx] = useState(undefined);
 
-  const setDraggedOverRowIdx = useCallback(rowIdx => {
+  const setDraggedOverRowIdx = useCallback((rowIdx) => {
     setOverRowIdx(rowIdx);
     latestDraggedOverRowIdx.current = rowIdx;
   }, []);
@@ -654,7 +658,9 @@ function DataGrid(
       aria-multiselectable={isSelectable ? true : undefined}
       aria-colcount={columns.length}
       aria-rowcount={headerRowsCount + rows.length + summaryRowsCount}
-      className={cx('rdg', { 'rdg-viewport-dragging': isDragging })}
+      className={cx(`${prefix}--rdg`, {
+        [`${prefix}--rdg-viewport-dragging`]: isDragging,
+      })}
       style={{
         width,
         height,
@@ -689,11 +695,12 @@ function DataGrid(
         createElement(emptyRowsRenderer)
       ) : (
         <>
-          <div
+          <div // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
+            role="navigation"
             ref={focusSinkRef}
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
-            className="rdg-focus-sink"
+            className={`${prefix}--rdg-focus-sink`}
             onKeyDown={handleKeyDown}
           />
           <div
@@ -716,5 +723,51 @@ function DataGrid(
     </div>
   );
 }
+
+DataGrid.propTypes = {
+  // Grid and data Props
+  columns: PropTypes.any,
+  rows: PropTypes.any,
+  summaryRows: PropTypes.any,
+  rowKey: PropTypes.any,
+  onRowsUpdate: PropTypes.any,
+  // Dimensions props
+  width: PropTypes.any,
+  height: PropTypes.any,
+  minColumnWidth: PropTypes.any,
+  rowHeight: PropTypes.any,
+  headerRowHeight: PropTypes.any,
+  headerFiltersHeight: PropTypes.any,
+  // Feature props
+  selectedRows: PropTypes.any,
+  onSelectedRowsChange: PropTypes.any,
+  sortColumn: PropTypes.any,
+  sortDirection: PropTypes.any,
+  onSort: PropTypes.any,
+  filters: PropTypes.any,
+  onFiltersChange: PropTypes.any,
+  // Custom renderers
+  defaultFormatter: PropTypes.any,
+  rowRenderer: PropTypes.any,
+  emptyRowsRenderer: PropTypes.any,
+  // Event props
+  onRowClick: PropTypes.any,
+  onScroll: PropTypes.any,
+  onColumnResize: PropTypes.any,
+  onSelectedCellChange: PropTypes.any,
+  onCheckCellIsEditable: PropTypes.any,
+  // Toggles and modes
+  enableFilters: PropTypes.any,
+  enableCellCopyPaste: PropTypes.any,
+  enableCellDragAndDrop: PropTypes.any,
+  cellNavigationMode: PropTypes.any,
+  // Miscellaneous
+  editorPortalTarget: PropTypes.any,
+  rowClass: PropTypes.any,
+  // ARIA
+  'aria-label': PropTypes.any,
+  'aria-labelledby': PropTypes.any,
+  'aria-describedby': PropTypes.any,
+};
 
 export default forwardRef(DataGrid);

@@ -1,19 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { memo } from 'react';
 
 import SummaryCell from './SummaryCell';
-// import { RowRendererProps } from './types';
+import { settings } from '@rocketsoftware/carbon-components';
 
-// type SharedRowRendererProps<R, SR> = Pick<RowRendererProps<R, SR>,
-//   | 'viewportColumns'
-//   | 'rowIdx'
-//   | 'lastFrozenColumnIndex'
-// >;
-
-// interface SummaryRowProps<R, SR> extends SharedRowRendererProps<R, SR> {
-//   'aria-rowindex': number;
-//   row: SR;
-//   bottom: number;
-// }
+const { prefix } = settings;
 
 function SummaryRow({
   rowIdx,
@@ -27,11 +18,11 @@ function SummaryRow({
     <div
       role="row"
       aria-rowindex={ariaRowIndex}
-      className={`rdg-row rdg-row-${
+      className={`${prefix}--rdg-row ${prefix}--rdg-row-${
         rowIdx % 2 === 0 ? 'even' : 'odd'
-      } rdg-summary-row`}
+      } ${prefix}--rdg-summary-row`}
       style={{ bottom }}>
-      {viewportColumns.map(column => (
+      {viewportColumns.map((column) => (
         <SummaryCell
           key={column.key}
           column={column}
@@ -42,5 +33,14 @@ function SummaryRow({
     </div>
   );
 }
+
+SummaryRow.propTypes = {
+  rowIdx: PropTypes.any,
+  lastFrozenColumnIndex: PropTypes.number,
+  row: PropTypes.any,
+  viewportColumns: PropTypes.any,
+  bottom: PropTypes.any,
+  'aria-rowindex': PropTypes.string,
+};
 
 export default memo(SummaryRow);

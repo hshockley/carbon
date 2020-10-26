@@ -1,15 +1,22 @@
+/* stylelint-disable max-nesting-depth */
+/* stylelint-disable */
+
+@import '../../globals/scss/helper-mixins';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
+@import '../../globals/scss/vars';
+
 //  Core Styles
-.rdg {
+.#{$prefix}--rdg {
   // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
   // We set a stacking context so internal elements don't render on top of external components.
   contain: strict;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-y: scroll;
   -webkit-user-select: none;
   user-select: none;
-  background-color: #fff;
+  background-color: #ffffff;
   font-size: 14px;
 
   *,
@@ -27,7 +34,7 @@
   }
 }
 
-.rdg-focus-sink {
+.#{$prefix}--rdg-focus-sink {
   position: sticky;
   top: 0;
   left: 0;
@@ -36,18 +43,18 @@
   outline: 0;
 }
 
-.rdg-viewport-dragging .rdg-row {
+.#{$prefix}--rdg-viewport-dragging .rdg-row {
   cursor: move;
 }
 
 // Cell Styles
-.rdg-cell {
+.#{$prefix}--rdg-cell {
   contain: strict;
   position: absolute;
   height: inherit;
   padding: 0 8px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
   background-color: inherit;
 
   white-space: nowrap;
@@ -55,26 +62,25 @@
   text-overflow: ellipsis;
 }
 
-.rdg-cell-frozen {
-  position: -webkit-sticky;
+.#{$prefix}--rdg-cell-frozen {
   position: sticky;
   /* Should have a higher value than 0 to show up above unfrozen cells */
   z-index: 1;
 }
 
-.rdg-cell-frozen-last {
+.#{$prefix}--rdg-cell-frozen-last {
   box-shadow: 2px 0 5px -2px rgba(136, 136, 136, 0.3);
 }
 
-.rdg-cell-selected {
+.#{$prefix}--rdg-cell-selected {
   box-shadow: inset 0 0 0 2px #66afe9;
 }
 
-.rdg-cell-copied {
+.#{$prefix}--rdg-cell-copied {
   background-color: #ccccff;
 }
 
-.rdg-cell-drag-handle {
+.#{$prefix}--rdg-cell-drag-handle {
   cursor: move;
   position: absolute;
   right: 0;
@@ -87,20 +93,20 @@
     width: 16px;
     height: 16px;
     border: 2px solid #66afe9;
-    background: #fff;
+    background: #ffffff;
   }
 }
 
-.rdg-cell-dragged-over {
+.#{$prefix}--rdg-cell-dragged-over {
   background-color: #ccccff;
 }
 
-.rdg-cell-copied.rdg-cell-dragged-over {
+.#{$prefix}--rdg-cell-copied.rdg-cell-dragged-over {
   background-color: #9999ff;
 }
 
 //  Checkbox Styles
-.rdg-checkbox-label {
+.#{$prefix}--rdg-checkbox-label {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -112,45 +118,45 @@
   left: 0;
 }
 
-.rdg-checkbox-label-disabled {
+.#{$prefix}--rdg-checkbox-label-disabled {
   cursor: default;
 
-  .rdg-checkbox {
-    border-color: #ccc;
-    background: #ddd;
+  .#{$prefix}--rdg-checkbox {
+    border-color: #cccccc;
+    background: #dddddd;
   }
 }
 
-.rdg-checkbox-input {
+.#{$prefix}--rdg-checkbox-input {
   all: unset;
   width: 0;
   margin: 0;
 }
 
-.rdg-checkbox {
+.#{$prefix}--rdg-checkbox {
   content: '';
   width: 20px;
   height: 20px;
-  border: 2px solid #ddd;
-  background: #fff;
+  border: 2px solid #dddddd;
+  background: #ffffff;
 
-  .rdg-checkbox-input:checked + & {
+  .#{$prefix}--rdg-checkbox-input:checked + & {
     background: #005295;
-    box-shadow: inset 0px 0px 0px 4px #fff;
+    box-shadow: inset 0px 0px 0px 4px #ffffff;
   }
 
-  .rdg-checkbox-input:focus + & {
+  .#{$prefix}--rdg-checkbox-input:focus + & {
     border-color: lighten(#005295, 40%);
   }
 }
 
 //    Editor Styles
-.rdg-editor-container {
+.#{$prefix}--rdg-editor-container {
   position: absolute;
 }
 
-.rdg-text-editor,
-.rdg-select-editor {
+.#{$prefix}--rdg-text-editor,
+.#{$prefix}--rdg-select-editor {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -158,16 +164,16 @@
   box-sizing: border-box;
   width: calc(100% + 1px);
   height: calc(100% + 1px);
-  padding: 1px 7px 0 7px;
+  padding: 1px 7px 0;
   margin: -1px 0 0 -1px;
-  border: 2px solid #ccc;
-  background-color: #fff;
+  border: 2px solid #cccccc;
+  background-color: #ffffff;
 
   font-size: 14px;
   line-height: 1.2;
   // .placeholder-color(#999);
   &::placeholder {
-    color: #999;
+    color: #999999;
     opacity: 1;
   }
   &:focus {
@@ -177,8 +183,8 @@
 
 //  Header Styles
 
-.rdg-header-row,
-.rdg-filter-row {
+.#{$prefix}--rdg-header-row,
+.#{$prefix}--rdg-filter-row {
   contain: strict;
   display: flex;
   width: var(--row-width);
@@ -191,13 +197,13 @@
   z-index: 3;
 }
 
-.rdg-header-row {
+.#{$prefix}--rdg-header-row {
   height: var(--header-row-height);
   line-height: var(--header-row-height);
   top: 0;
 }
 
-.rdg-filter-row {
+.#{$prefix}--rdg-filter-row {
   height: var(--filter-row-height);
   line-height: var(--filter-row-height);
   top: var(--header-row-height);
@@ -205,7 +211,7 @@
 
 // TODO: replace this with a pseudo-element once we drop support for Legacy Edge,
 // as `cursor` doesn't work on pseudo-elements on those browsers.
-.rdg-header-cell-resizer {
+.#{$prefix}--rdg-header-cell-resizer {
   cursor: col-resize;
   position: absolute;
   top: 0;
@@ -214,25 +220,25 @@
   width: 10px;
 }
 
-.rdg-cell .Select {
+.#{$prefix}--rdg-cell .Select {
   max-height: 30px;
   font-size: 12px;
   font-weight: normal;
 }
 
-.rdg-header-sort-cell {
+.#{$prefix}--rdg-header-sort-cell {
   cursor: pointer;
   display: flex;
 }
 
-.rdg-header-sort-name {
+.#{$prefix}--rdg-header-sort-name {
   flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 //  Row Styles
-.rdg-row {
+.#{$prefix}--rdg-row {
   contain: strict;
   display: flex;
   position: absolute;
@@ -240,14 +246,14 @@
   width: var(--row-width);
   height: var(--row-height);
   line-height: var(--row-height);
-  background-color: #fff;
+  background-color: #ffffff;
 
   &:hover {
-    background-color: darken(#fff, 4%);
+    background-color: darken(#ffffff, 4%);
   }
 }
 
-.rdg-row-selected {
+.#{$prefix}--rdg-row-selected {
   background-color: #dbecfa;
 
   &:hover {
@@ -255,30 +261,30 @@
   }
 }
 
-.rdg-summary-row {
+.#{$prefix}--rdg-summary-row {
   position: -webkit-sticky;
   position: sticky;
   z-index: 3;
 
   > .rdg-cell {
-    border-top: 2px solid darken(#ddd, 20%);
+    border-top: 2px solid darken(#dddddd, 20%);
   }
 }
 
 //Toolbar
 
-.rdg-toolbar {
+.#{$prefix}--rdg-toolbar {
   background-color: #ffffff;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;
-  border-width: 1px 1px 1px 1px;
+  border-width: 1px;
   color: inherit;
   margin-bottom: 0;
   padding: 14px 15px 7px;
 }
 
-.rdg-toolbar .btn {
+.#{$prefix}--rdg-toolbar .btn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -292,31 +298,31 @@
   cursor: pointer;
   -webkit-user-select: none;
   color: inherit;
-  background: white;
+  background: #ffffff;
   border: 1px solid #e7eaec;
 }
 
-.rdg-toolbar .btn:hover {
+.#{$prefix}--rdg-toolbar .btn:hover {
   color: inherit;
   border: 1px solid #d2d2d2;
 }
 
-.rdg-toolbar .grouped-col-btn {
+.#{$prefix}--rdg-toolbar .grouped-col-btn {
   background-color: #428bca;
-  color: white;
+  color: #ffffff;
   border-color: #2b669a;
 }
 
-.rdg-toolbar .grouped-col-btn:hover {
-  color: white;
+.#{$prefix}--rdg-toolbar .grouped-col-btn:hover {
+  color: #ffffff;
   border-color: #2b669a;
 }
 
-.rdg-toolbar .grouped-col-btn + .grouped-col-btn {
+.#{$prefix}--rdg-toolbar .grouped-col-btn + .grouped-col-btn {
   margin-left: 5px;
 }
 
-.rdg-toolbar .tools {
+.#{$prefix}--rdg-toolbar .tools {
   float: right;
   position: relative;
   padding: 0;
@@ -324,7 +330,7 @@
 }
 
 //Image
-.rdg-image-cell {
+.#{$prefix}--rdg-image-cell {
   background: #efefef;
   background-size: 100%;
   display: inline-block;
@@ -334,48 +340,48 @@
   background-position: center;
 }
 
-.rdg-image-cell-wrapper {
+.#{$prefix}--rdg-image-cell-wrapper {
   display: flex;
   justify-content: space-around;
 }
 
 //Cell Expander
-.rdg-cell-expand {
+.#{$prefix}--rdg-cell-expand {
   float: right;
   display: table;
   height: 100%;
 }
 
-.rdg-cell-expand > span {
+.#{$prefix}--rdg-cell-expand > span {
   display: table-cell;
   vertical-align: middle;
   cursor: pointer;
 }
 
-.rdg-child-row-action-cross:before,
-.rdg-child-row-action-cross:after {
+.#{$prefix}--rdg-child-row-action-cross:before,
+.#{$prefix}--rdg-child-row-action-cross:after {
   content: '';
   position: absolute;
-  background: grey;
+  background: #8d8d8d;
 }
 
-.rdg-child-row-action-cross:before {
+.#{$prefix}--rdg-child-row-action-cross:before {
   left: 21px;
   width: 1px;
   height: 100%;
 }
 
-.rdg-child-row-action-cross:after {
+.#{$prefix}--rdg-child-row-action-cross:after {
   top: 50%;
   left: 20px;
   height: 1px;
   width: 15px;
 }
 
-.rdg-child-row-action-cross:hover {
-  background: red;
+.#{$prefix}--rdg-child-row-action-cross:hover {
+  background: #da1e28;
 }
-.rdg-child-row-btn {
+.#{$prefix}--rdg-child-row-btn {
   cursor: pointer;
   position: absolute;
   left: 21px;
@@ -385,15 +391,15 @@
 
 //Cell Actions
 
-.rdg-cell-action {
+.#{$prefix}--rdg-cell-action {
   float: right;
 }
 
-.rdg-cell-action-last {
+.#{$prefix}--rdg-cell-action-last {
   margin-right: -8px;
 }
 
-.rdg-cell-action-button {
+.#{$prefix}--rdg-cell-action-button {
   width: 35px;
   height: 100%;
   text-align: center;
@@ -402,17 +408,17 @@
   color: #4a9de2;
 }
 
-.rdg-cell-action-button > span {
+.#{$prefix}--rdg-cell-action-button > span {
   display: table-cell;
   vertical-align: middle;
 }
 
-.rdg-cell-action-button:hover,
-.rdg-cell-action-button-toggled {
+.#{$prefix}--rdg-cell-action-button:hover,
+.#{$prefix}--rdg-cell-action-button-toggled {
   color: #447bbb;
 }
 
-.rdg-cell-action-menu {
+.#{$prefix}--rdg-cell-action-menu {
   position: absolute;
   top: 100%;
   z-index: 1000;
@@ -421,50 +427,35 @@
   padding: 5px 0;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #ffffff;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 3px 0 #ccc;
+  border: 1px solid #cccccc;
+  box-shadow: 0 0 3px 0 #cccccc;
 }
 
-.rdg-cell-action-menu > span {
+.#{$prefix}--rdg-cell-action-menu > span {
   display: block;
   padding: 3px 10px;
   clear: both;
   font-weight: 400;
-  line-height: 1.42857143;
-  color: #333;
+  line-height: 1.4286;
+  color: #333333;
   white-space: nowrap;
 }
 
-.rdg-cell-action-menu > span:hover {
+.#{$prefix}--rdg-cell-action-menu > span:hover {
   color: #262626;
   text-decoration: none;
   background-color: #f5f5f5;
 }
 
-body,
-html {
-  padding: 0;
-  margin: 0;
-  font-family: sans-serif;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  height: 100vh;
-  padding: 8px;
-}
-
-.load-more-rows-tag {
+.#{$prefix}--load-more-rows-tag {
   line-height: 35px;
   width: 180px;
   position: relative;
   top: -70px;
   padding: 8px 16px;
   background: rgba(0, 0, 0, 0.6);
-  color: white;
+  color: #ffffff;
 }

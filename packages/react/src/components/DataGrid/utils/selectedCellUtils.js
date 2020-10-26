@@ -1,13 +1,5 @@
 import { CellNavigationMode } from '../enums';
 import { canEdit } from './columnUtils';
-// import { CalculatedColumn, Position } from '../types';
-
-// interface IsSelectedCellEditableOpts<R, SR> {
-//   selectedPosition: Position;
-//   columns: readonly CalculatedColumn<R, SR>[];
-//   rows: readonly R[];
-//   onCheckCellIsEditable?: (arg: { row: R; column: CalculatedColumn<R, SR> } & Position) => boolean;
-// }
 
 export function isSelectedCellEditable({
   selectedPosition,
@@ -22,13 +14,6 @@ export function isSelectedCellEditable({
     : true;
   return isCellEditable && canEdit(column, row);
 }
-
-// interface GetNextSelectedCellPositionOpts<R, SR> {
-//   cellNavigationMode: CellNavigationMode;
-//   columns: readonly CalculatedColumn<R, SR>[];
-//   rowsCount: number;
-//   nextPosition: Position;
-// }
 
 export function getNextSelectedCellPosition({
   cellNavigationMode,
@@ -77,14 +62,6 @@ export function getNextSelectedCellPosition({
 
   return nextPosition;
 }
-
-// interface CanExitGridOpts<R, SR> {
-//   cellNavigationMode: CellNavigationMode;
-//   columns: readonly CalculatedColumn<R, SR>[];
-//   rowsCount: number;
-//   selectedPosition: Position;
-//   shiftKey: boolean;
-// }
 
 export function canExitGrid({
   cellNavigationMode,

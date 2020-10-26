@@ -5,13 +5,17 @@ import DataGrid, { SelectColumn, UpdateActions } from '../../DataGrid';
 import DropDownEditor from '../components/Editors/DropDownEditor';
 import { ImageFormatter } from '../components/Formatters';
 import Toolbar from '../components/Toolbar/Toolbar';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
+import { DraggableHeaderRenderer } from '../components/HeaderRenderers';
 
 import './AllFeatures.scss';
 
-faker.locale = 'en_GB';
+faker.locale = 'en_US';
 
 const titles = ['Dr.', 'Mr.', 'Mrs.', 'Miss', 'Ms.'];
-
+/* eslint-disable */
 function createFakeRowObjectData(index) {
   return {
     id: `id_${index}`,
@@ -47,7 +51,7 @@ function isAtBottom(event) {
 }
 
 function loadMoreRows(newRowsCount, length) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const newRows = [];
 
     for (let i = 0; i < newRowsCount; i++) {
@@ -58,117 +62,147 @@ function loadMoreRows(newRowsCount, length) {
   });
 }
 
+function createColumns() {
+  return [
+    SelectColumn,
+    {
+      key: 'id',
+      name: 'ID',
+      width: 80,
+      resizable: true,
+      frozen: true,
+    },
+    {
+      key: 'avatar',
+      name: 'Avatar',
+      width: 40,
+      resizable: true,
+      headerRenderer: () => <ImageFormatter value={faker.image.cats()} />,
+      formatter: ({ row }) => <ImageFormatter value={row.avatar} />,
+    },
+    {
+      key: 'title',
+      name: 'Title',
+      editor: React.forwardRef((props, ref) => (
+        <DropDownEditor ref={ref} {...props} options={titles} />
+      )),
+      width: 200,
+      resizable: true,
+      formatter(props) {
+        return <>{props.row.title}</>;
+      },
+    },
+    {
+      key: 'firstName',
+      name: 'First Name',
+      editable: true,
+      width: 200,
+      resizable: true,
+      frozen: true,
+    },
+    {
+      key: 'lastName',
+      name: 'Last Name',
+      editable: true,
+      width: 200,
+      resizable: true,
+      frozen: true,
+    },
+    {
+      key: 'email',
+      name: 'Email',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+    {
+      key: 'street',
+      name: 'Street',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+    {
+      key: 'zipCode',
+      name: 'ZipCode',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+    {
+      key: 'date',
+      name: 'Date',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+    {
+      key: 'bs',
+      name: 'bs',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+    {
+      key: 'catchPhrase',
+      name: 'Catch Phrase',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+    {
+      key: 'companyName',
+      name: 'Company Name',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+    {
+      key: 'sentence',
+      name: 'Sentence',
+      editable: true,
+      width: 200,
+      resizable: true,
+    },
+  ];
+}
+
 export default function AllFeatures() {
   const [rows, setRows] = useState(() => createRows(2000));
   const [selectedRows, setSelectedRows] = useState(() => new Set());
+  const [columns, setColumns] = useState(createColumns);
   const [isLoading, setIsLoading] = useState(false);
   const gridRef = useRef(null);
 
-  const columns = useMemo(
-    () => [
-      SelectColumn,
-      {
-        key: 'id',
-        name: 'ID',
-        width: 80,
-        resizable: true,
-        frozen: true,
-      },
-      {
-        key: 'avatar',
-        name: 'Avatar',
-        width: 40,
-        resizable: true,
-        headerRenderer: () => <ImageFormatter value={faker.image.cats()} />,
-        formatter: ({ row }) => <ImageFormatter value={row.avatar} />,
-      },
-      {
-        key: 'title',
-        name: 'Title',
-        editor: React.forwardRef((props, ref) => (
-          <DropDownEditor ref={ref} {...props} options={titles} />
-        )),
-        width: 200,
-        resizable: true,
-        formatter(props) {
-          return <>{props.row.title}</>;
-        },
-      },
-      {
-        key: 'firstName',
-        name: 'First Name',
-        editable: true,
-        width: 200,
-        resizable: true,
-        frozen: true,
-      },
-      {
-        key: 'lastName',
-        name: 'Last Name',
-        editable: true,
-        width: 200,
-        resizable: true,
-        frozen: true,
-      },
-      {
-        key: 'email',
-        name: 'Email',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-      {
-        key: 'street',
-        name: 'Street',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-      {
-        key: 'zipCode',
-        name: 'ZipCode',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-      {
-        key: 'date',
-        name: 'Date',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-      {
-        key: 'bs',
-        name: 'bs',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-      {
-        key: 'catchPhrase',
-        name: 'Catch Phrase',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-      {
-        key: 'companyName',
-        name: 'Company Name',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-      {
-        key: 'sentence',
-        name: 'Sentence',
-        editable: true,
-        width: 200,
-        resizable: true,
-      },
-    ],
-    []
-  );
+  const draggableColumns = useMemo(() => {
+    function HeaderRenderer(props) {
+      return (
+        <DraggableHeaderRenderer
+          {...props}
+          onColumnsReorder={handleColumnsReorder}
+        />
+      );
+    }
+
+    function handleColumnsReorder(sourceKey, targetKey) {
+      const sourceColumnIndex = columns.findIndex((c) => c.key === sourceKey);
+      const targetColumnIndex = columns.findIndex((c) => c.key === targetKey);
+      const reorderedColumns = [...columns];
+
+      reorderedColumns.splice(
+        targetColumnIndex,
+        0,
+        reorderedColumns.splice(sourceColumnIndex, 1)[0]
+      );
+
+      setColumns(reorderedColumns);
+    }
+
+    return columns.map((c) => {
+      if (c.key === 'id') return c;
+      return { ...c, headerRenderer: HeaderRenderer };
+    });
+  }, [columns]);
 
   const handleRowUpdate = useCallback(
     ({ fromRow, toRow, updated, action }) => {
@@ -194,7 +228,7 @@ export default function AllFeatures() {
   );
 
   const handleAddRow = useCallback(
-    newRowIndex => setRows([...rows, createFakeRowObjectData(newRowIndex)]),
+    (newRowIndex) => setRows([...rows, createFakeRowObjectData(newRowIndex)]),
     [rows]
   );
 
@@ -216,47 +250,43 @@ export default function AllFeatures() {
   }
 
   return (
-    <>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Toolbar onAddRow={handleAddRow} numberOfRows={rows.length} />
       <AutoSizer>
         {({ height, width }) => {
-          console.log('HEIGHT');
-          console.log(height);
-          console.log('WIDTH');
-          console.log(width);
-
           return (
             <>
-              <DataGrid
-                ref={gridRef}
-                columns={columns}
-                rows={rows}
-                rowKey="id"
-                onRowsUpdate={handleRowUpdate}
-                onRowClick={handleRowClick}
-                rowHeight={30}
-                width={width}
-                height={height - 40}
-                selectedRows={selectedRows}
-                onScroll={handleScroll}
-                onSelectedRowsChange={setSelectedRows}
-                rowClass={row =>
-                  row.id.includes('7') ? 'highlight' : undefined
-                }
-                enableCellCopyPaste
-                enableCellDragAndDrop
-              />
-              {isLoading && (
-                <div
-                  className="load-more-rows-tag"
-                  style={{ left: width - 230 }}>
-                  Loading more rows...
-                </div>
-              )}
+              <DndProvider backend={HTML5Backend}>
+                <DataGrid
+                  ref={gridRef}
+                  columns={draggableColumns}
+                  rows={rows}
+                  rowKey="id"
+                  onRowsUpdate={handleRowUpdate}
+                  onRowClick={handleRowClick}
+                  rowHeight={30}
+                  width={width}
+                  height={height - 40}
+                  selectedRows={selectedRows}
+                  onScroll={handleScroll}
+                  onSelectedRowsChange={setSelectedRows}
+                  rowClass={(row) =>
+                    row.id.includes('7') ? 'highlight' : undefined
+                  }
+                />
+                {isLoading && (
+                  <div
+                    className="load-more-rows-tag"
+                    style={{ left: width - 230 }}>
+                    Loading more rows...
+                  </div>
+                )}
+              </DndProvider>
             </>
           );
         }}
       </AutoSizer>
-    </>
+    </div>
   );
 }
+/* eslint-enable */

@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 const RuleType = {
   Numbe: 1,
@@ -31,10 +35,10 @@ export function NumericFilter({ value, column, onChange }) {
     'Input Methods: Range (x-y), Greater Than (>x), Less Than (<y)';
 
   return (
-    <div className="rdg-filter-container">
+    <div className={`${prefix}--rdg-filter-container`}>
       <input
         value={value?.rawValue ?? ''}
-        className="rdg-filter"
+        className={`${prefix}--rdg-filter`}
         placeholder="e.g. 3,10-15,>20"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
@@ -91,7 +95,7 @@ export function getRules(value) {
   }
 
   // handle each value with comma
-  return value.split(',').map(str => {
+  return value.split(',').map((str) => {
     // handle dash
     const dashIdx = str.indexOf('-');
     if (dashIdx > 0) {
@@ -117,3 +121,9 @@ export function getRules(value) {
     return { type: RuleType.Number, value: numericValue };
   });
 }
+
+NumericFilter.propTypes = {
+  value: PropTypes.any,
+  column: PropTypes.any,
+  onChange: PropTypes.any,
+};

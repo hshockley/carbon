@@ -1,9 +1,12 @@
+import PropTypes from 'prop-types';
 import React, { memo } from 'react';
 import cx from 'classnames';
 
 import Cell from './Cell';
-// import { RowRendererProps } from './types';
 import { wrapEvent } from './utils';
+import { settings } from '@rocketsoftware/carbon-components';
+
+const { prefix } = settings;
 
 function Row({
   cellRenderer: CellRenderer = Cell,
@@ -31,23 +34,22 @@ function Row({
   }
 
   className = cx(
-    'rdg-row',
-    `rdg-row-${rowIdx % 2 === 0 ? 'even' : 'odd'}`,
-    { 'rdg-row-selected': isRowSelected },
+    `${prefix}--rdg-row`,
+    `${prefix}--rdg-row-${rowIdx % 2 === 0 ? 'even' : 'odd'}`,
+    { [`${prefix}--rdg-row-selected`]: isRowSelected },
     rowClass?.(row),
     className
   );
 
   return (
     <div
-      role="row"
       aria-rowindex={ariaRowIndex}
       aria-selected={ariaSelected}
       className={className}
       onMouseEnter={wrapEvent(handleDragEnter, onMouseEnter)}
       style={{ top }}
       {...props}>
-      {viewportColumns.map(column => (
+      {viewportColumns.map((column) => (
         <CellRenderer
           key={column.key}
           rowIdx={rowIdx}
@@ -69,5 +71,26 @@ function Row({
     </div>
   );
 }
+
+Row.propTypes = {
+  cellRenderer: PropTypes.any,
+  className: PropTypes.any,
+  eventBus: PropTypes.any,
+  rowIdx: PropTypes.any,
+  isRowSelected: PropTypes.any,
+  lastFrozenColumnIndex: PropTypes.any,
+  copiedCellIdx: PropTypes.any,
+  draggedOverCellIdx: PropTypes.any,
+  row: PropTypes.any,
+  viewportColumns: PropTypes.any,
+  selectedCellProps: PropTypes.any,
+  onRowClick: PropTypes.any,
+  rowClass: PropTypes.any,
+  setDraggedOverRowIdx: PropTypes.any,
+  onMouseEnter: PropTypes.any,
+  top: PropTypes.any,
+  'aria-rowindex': PropTypes.any,
+  'aria-selected': PropTypes.any,
+};
 
 export default memo(Row);

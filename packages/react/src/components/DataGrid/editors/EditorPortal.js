@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// interface Props {
-//   children: React.ReactNode;
-//   target: Element;
-// }
-
 export default function EditorPortal({ target, children }) {
   // Keep track of when the modal element is added to the DOM
   const [isMounted, setIsMounted] = React.useState(false);
